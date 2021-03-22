@@ -8,6 +8,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.json.JSONObject;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import utils.GenericUtils;
 
 public class SampleController {
 
@@ -55,7 +58,8 @@ public class SampleController {
 	      			    while ((responseLine = br.readLine()) != null) {
 	      			        response.append(responseLine.trim());
 	      			    }
-	      			    System.out.println(response.toString());
+	      			    JSONObject jResponse = new JSONObject(response.toString());
+	      			    GenericUtils.currentToken = jResponse.getString("statusData");
 	      			    CarreerSelector cs=new CarreerSelector();
 	      			  try {
 	      		        FXMLLoader fxmlLoader = new FXMLLoader();

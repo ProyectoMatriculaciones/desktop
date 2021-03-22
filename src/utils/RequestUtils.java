@@ -141,9 +141,10 @@ public class RequestUtils {
 	public static int insertGrades(ArrayList<JSONObject> grades)
 	{
 	    	String sUrl = GenericUtils.apiUrl + GenericUtils.epInsertGrade;
-	    	String headers[][] = new String[2][2];
+	    	String headers[][] = new String[3][2];
 	    	headers[0] = RequestUtils.hAcceptJson;
 	    	headers[1] = RequestUtils.setAccessToken(GenericUtils.currentToken);
+	    	headers[2] = RequestUtils.hContentJson;
 	    	int inserted = 0;
 	    	for (int i = 0; i < grades.size(); i++)
 	    	{

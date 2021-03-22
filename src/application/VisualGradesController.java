@@ -73,11 +73,13 @@ public class VisualGradesController implements Initializable{
 
 	private void updateAccordion(String sGrade)
     {
+		
 		// Updates Accordion with grade data
 		String sGradeCode = sGrade.split(" - ")[0];
     	JSONObject grade = RequestUtils.gradeRequest(sGradeCode);
     	if (grade != null)
     	{
+    		accordMps.getPanes().clear();
     		lastUpdatedGrade = grade;
         	
         	JSONArray mps = grade.getJSONArray("arrayMO");
