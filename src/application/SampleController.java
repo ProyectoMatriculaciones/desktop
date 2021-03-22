@@ -60,9 +60,7 @@ public class SampleController {
 	    	else
 	    	{
 	    		
-	    	}
-	    	
-	    	
+	    	} 	   	
 
 	    	
 		} catch (MalformedURLException e) {
