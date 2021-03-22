@@ -10,9 +10,12 @@ import java.net.URL;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class SampleController {
 
@@ -31,7 +34,7 @@ public class SampleController {
     	URL url;
 		try {
 			
-			url = new URL ("https://api-matriculacioones.herokuapp.com/login/alumn");
+			url = new URL ("https://api-matriculacioones.herokuapp.com/login/admin");
 			HttpURLConnection con = (HttpURLConnection)url.openConnection();
 	    	con.setRequestMethod("POST");
 	    	con.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
@@ -53,6 +56,22 @@ public class SampleController {
 	      			        response.append(responseLine.trim());
 	      			    }
 	      			    System.out.println(response.toString());
+	      			    CarreerSelector cs=new CarreerSelector();
+	      			  try {
+	      		        FXMLLoader fxmlLoader = new FXMLLoader();
+	      		        fxmlLoader.setLocation(getClass().getResource("CarreerSelector.fxml"));
+	      		        /* 
+	      		         * if "fx:controller" is not set in fxml
+	      		         * fxmlLoader.setController(NewWindowController);
+	      		         */
+	      		        Scene scene = new Scene(fxmlLoader.load());
+	      		        Stage stage = new Stage();
+	      		        stage.setTitle("Carreer Selector");
+	      		        stage.setScene(scene);
+	      		        stage.show();
+	      		    } catch (IOException e) {
+	      		      e.printStackTrace();
+	      		    }
 	      		}
 	    	}else if (responseCode == 400) {
 	    		System.out.println("response code = 400");

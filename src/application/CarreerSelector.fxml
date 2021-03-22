@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ListController">
+   <children>
+      <TableView fx:id="tableView" layoutX="14.0" layoutY="31.0" prefHeight="315.0" prefWidth="571.0">
+        <columns>
+          <TableColumn fx:id="carreerCodeColumn" prefWidth="75.0" text="CarreerCode" />
+          <TableColumn fx:id="carreerNameColumn" prefWidth="417.60003662109375" text="CarreerName" />
+            <TableColumn fx:id="selectionColumn" prefWidth="76.5999755859375" text="Selection" />
+        </columns>
+      </TableView>
+      <Button fx:id="bnImport" layoutX="274.0" layoutY="346.0" mnemonicParsing="false" onAction="#importCarreers" text="Import" />
+   </children>
+</Pane>
