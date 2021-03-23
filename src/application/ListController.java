@@ -62,11 +62,7 @@ public class ListController implements Initializable{
     			 codelist.add(tableView.getItems().get(i).getCarreerCode());
     		 }
     		 
-    	 }
-    	 
-    	 for (String string : codelist) {
-			System.out.println(string);
-		}
+    	 }    	 
     	 
     	 ArrayList<JSONObject> selectedGrades=CSVUtils.parseGrade(codelist, importFile);
     	 
@@ -108,8 +104,21 @@ public class ListController implements Initializable{
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("CSV", "*.csv")
         );
+        File csvFile = null;
+        
+        while (csvFile == null)
+        {
+        	csvFile = fileChooser.showOpenDialog(Main.stage);
+        	if (csvFile == null)
+        	{
+        		 Alert alert = new Alert(AlertType.ERROR);
+            	 alert.setTitle("Importacion de ciclos");
+            	 alert.setContentText("Es necesario seleccionar un archivo CSV para acceder a la pantalla de importacion de datos");
+            	 alert.showAndWait();
+        	}
+        }
 
-        File csvFile = fileChooser.showOpenDialog(Main.stage);
+        
         
         if(csvFile!=null) {
         	importFile=csvFile;

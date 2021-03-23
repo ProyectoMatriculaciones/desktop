@@ -92,7 +92,7 @@ public class VisualGradesController implements Initializable{
         		for (int j = 0; j < ufs.length(); j++)
         		{
         			JSONObject uf = ufs.getJSONObject(j);
-        			ufNames.add(uf.getString("UFName"));  
+        			ufNames.add(uf.getString("UFName") + " - " + uf.getString("UFDuration") + "h");  
         		}	
         		ListView<String> lv = new ListView<String>();
         		lv.setItems(FXCollections.observableArrayList(ufNames));	

@@ -1,19 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ListController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ListController">
    <children>
-      <TableView fx:id="tableView" layoutX="14.0" layoutY="31.0" prefHeight="315.0" prefWidth="571.0">
+      <TableView fx:id="tableView" layoutX="171.0" layoutY="117.0" prefHeight="454.0" prefWidth="659.0">
         <columns>
-          <TableColumn fx:id="carreerCodeColumn" prefWidth="75.0" text="CarreerCode" />
-          <TableColumn fx:id="carreerNameColumn" prefWidth="417.60003662109375" text="CarreerName" />
-            <TableColumn fx:id="selectionColumn" prefWidth="76.5999755859375" text="Selection" />
+          <TableColumn fx:id="carreerCodeColumn" prefWidth="130.0" text="CarreerCode" />
+          <TableColumn fx:id="carreerNameColumn" prefWidth="381.0" text="CarreerName" />
+            <TableColumn fx:id="selectionColumn" prefWidth="147.0" text="Selection" />
         </columns>
       </TableView>
-      <Button fx:id="bnImport" layoutX="274.0" layoutY="346.0" mnemonicParsing="false" onAction="#importCarreers" text="Import" />
+      <Button fx:id="bnImport" layoutX="440.0" layoutY="615.0" mnemonicParsing="false" onAction="#importCarreers" prefHeight="43.0" prefWidth="121.0" text="Import" />
+      <Label layoutX="281.0" layoutY="65.0" prefHeight="43.0" prefWidth="439.0" text="SELECCIONA LOS CICLOS QUE QUIERES IMPORTAR" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
    </children>
 </Pane>

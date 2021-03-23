@@ -87,7 +87,7 @@ public class CSVUtils {
 			}
 		      alModulos.get(alModulos.size()-1).put("arrayUF", alUFs);
 		      alCiclos.get(alCiclos.size()-1).put("arrayMO", alModulos);
-		      System.out.println(alCiclos.get(alCiclos.size()-1).toString());
+		      //System.out.println(alCiclos.get(alCiclos.size()-1).toString());
 		      
 		      
 		      for (int j = 0; j < alCiclos.size(); j++) {
