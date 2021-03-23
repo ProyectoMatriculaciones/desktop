@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -84,7 +85,7 @@ public class RequestUtils {
 	{
 		String response = "";
 		try {
-			Scanner in = new Scanner(con.getInputStream());
+			Scanner in = new Scanner(con.getInputStream(), StandardCharsets.UTF_8);
 			while (in.hasNextLine())
 			{
 				response += in.nextLine();
@@ -132,6 +133,7 @@ public class RequestUtils {
 		if (responseCode == 200)
 		{
 			response = RequestUtils.getResponse(con);
+			System.out.println(response);
 			if (response != null)
 				return new JSONObject(response);
 		}
