@@ -3,15 +3,19 @@ package application;
 import java.awt.Checkbox;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
-
 import org.json.JSONObject;
+
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -32,48 +36,48 @@ import javafx.stage.FileChooser;
 import utils.CSVUtils;
 import utils.RequestUtils;
 
-public class ListController implements Initializable{
+public class ListController implements Initializable {
 
-	 @FXML
-	 private TableView<Carreer> tableView;
-	 
-	 @FXML
-	 private TableColumn<Carreer, String> carreerCodeColumn;
+	@FXML
+	private TableView<Carreer> tableView;
 
-	 @FXML
-	 private TableColumn<Carreer, String> carreerNameColumn;
+	@FXML
+	private TableColumn<Carreer, String> carreerCodeColumn;
 
-	 @FXML
-	 private TableColumn<Carreer, Checkbox> selectionColumn;
-	 
-	 @FXML
-	 private Button bnImport;
-	 
-	 private ArrayList<String> codelist=new ArrayList<>();
-	 
-	 private File importFile;
+	@FXML
+	private TableColumn<Carreer, String> carreerNameColumn;
 
-     @FXML
-     void importCarreers(ActionEvent event) {
+	@FXML
+	private TableColumn<Carreer, Checkbox> selectionColumn;
 
-    	 for(int i=0;i<tableView.getItems().size();i++) {
-    		 
-    		 if(tableView.getItems().get(i).getCheckBox().isSelected()) {
-    			 codelist.add(tableView.getItems().get(i).getCarreerCode());
-    		 }
-    		 
-    	 }    	 
-    	 
-    	 ArrayList<JSONObject> selectedGrades=CSVUtils.parseGrade(codelist, importFile);
-    	 
-    	 int inserted = RequestUtils.insertGrades(selectedGrades);
-    	 
-    	 Alert alert = new Alert(AlertType.INFORMATION);
-    	 alert.setTitle("Importacion de ciclos");
-    	 alert.setContentText("Se han insertado " + inserted + " nuevos ciclos!");
-    	 alert.showAndWait();
-    	 
-    	 Parent root;
+	@FXML
+	private Button bnImport;
+
+	private ArrayList<String> codelist = new ArrayList<>();
+
+	private File importFile;
+
+	@FXML
+	void importCarreers(ActionEvent event) {
+
+		for (int i = 0; i < tableView.getItems().size(); i++) {
+
+			if (tableView.getItems().get(i).getCheckBox().isSelected()) {
+				codelist.add(tableView.getItems().get(i).getCarreerCode());
+			}
+
+		}
+
+		ArrayList<JSONObject> selectedGrades = CSVUtils.parseGrade(codelist, importFile);
+
+		int inserted = RequestUtils.insertGrades(selectedGrades);
+
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Importacion de ciclos");
+		alert.setContentText("Se han insertado " + inserted + " nuevos ciclos!");
+		alert.showAndWait();
+
+		Parent root;
 		try {
 			root = FXMLLoader.load(getClass().getResource("VisualGrades.fxml"));
 			Scene scene = new Scene(root);
@@ -83,98 +87,94 @@ public class ListController implements Initializable{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-    	 
-     }
 
+	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		
+
 		tableView.setVisible(false);
 		carreerCodeColumn.setVisible(false);
 		carreerNameColumn.setVisible(false);
 		selectionColumn.setVisible(false);
 		bnImport.setVisible(false);
-		
+
 		FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Buscar Archivo CSV");
+		fileChooser.setTitle("Buscar Archivo CSV");
 
+		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("CSV", "*.csv"));
+		File csvFile = null;
 
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("CSV", "*.csv")
-        );
-        File csvFile = null;
-        
-        while (csvFile == null)
-        {
-        	csvFile = fileChooser.showOpenDialog(Main.stage);
-        	if (csvFile == null)
-        	{
-        		 Alert alert = new Alert(AlertType.ERROR);
-            	 alert.setTitle("Importacion de ciclos");
-            	 alert.setContentText("Es necesario seleccionar un archivo CSV para acceder a la pantalla de importacion de datos");
-            	 alert.showAndWait();
-        	}
-        }
+		while (csvFile == null) {
+			csvFile = fileChooser.showOpenDialog(Main.stage);
+			if (csvFile == null) {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Importacion de ciclos");
+				alert.setContentText(
+						"Es necesario seleccionar un archivo CSV para acceder a la pantalla de importacion de datos");
+				alert.showAndWait();
+			}
+		}
 
-        
-        
-        if(csvFile!=null) {
-        	importFile=csvFile;
-        	tableView.setVisible(true);
-    		carreerCodeColumn.setVisible(true);
-    		carreerNameColumn.setVisible(true);
-    		selectionColumn.setVisible(true);
-    		bnImport.setVisible(true);
-    		
+		if (csvFile != null) {
+			importFile = csvFile;
+			tableView.setVisible(true);
+			carreerCodeColumn.setVisible(true);
+			carreerNameColumn.setVisible(true);
+			selectionColumn.setVisible(true);
+			bnImport.setVisible(true);
 
-    		ObservableList<Carreer> list =FXCollections.observableArrayList();
-    		BufferedReader br = null;
-    	      
-    	      try {
-    	         
-    	         br =new BufferedReader(new FileReader(csvFile,StandardCharsets.UTF_8));
-    	         String line = br.readLine();
-    	         String initialcode="";
-    	         while ((line = br.readLine()) != null) {                
-    	             String[] datos = line.split(",");
-    	             //Imprime datos.
-    	             if(!initialcode.equals(datos[0])) {
-    	            	 initialcode=datos[0];
-    	            	 Carreer c=new Carreer(datos[0],datos[1]);
-    	            	 list.add(c);
-    	             }
+			ObservableList<Carreer> list = FXCollections.observableArrayList();
+			/*
+			 * BufferedReader br = null;
+			 * 
+			 * try {
+			 * 
+			 * br =new BufferedReader(new FileReader(csvFile,StandardCharsets.UTF_8));
+			 * String line = br.readLine(); String initialcode=""; while ((line =
+			 * br.readLine()) != null) { if(line.contains("\"")) { System.out.println(line);
+			 * }else { String[] datos = line.split(","); //Imprime datos.
+			 * if(!initialcode.equals(datos[0])) { initialcode=datos[0]; Carreer c=new
+			 * Carreer(datos[0],datos[1]); list.add(c); }
+			 * 
+			 * } }
+			 * 
+			 * } catch (Exception e) { e.printStackTrace(); } finally { if (null!=br) { try
+			 * { br.close(); } catch (IOException e) { // TODO Auto-generated catch block
+			 * e.printStackTrace(); } } }
+			 */
 
-    	         }
-    	         
-    	      } catch (Exception e) {
-    	        e.printStackTrace();
-    	      } finally {
-    	         if (null!=br) {
-    	            try {
-    					br.close();
-    				} catch (IOException e) {
-    					// TODO Auto-generated catch block
-    					e.printStackTrace();
-    				}
-    	         }
-    	      }
-    	      
-    	      
-    	      carreerCodeColumn.setCellValueFactory(new PropertyValueFactory<Carreer,String>("carreerCode"));
-    	      carreerNameColumn.setCellValueFactory(new PropertyValueFactory<Carreer,String>("carreerName"));
-    	      selectionColumn.setCellValueFactory(new PropertyValueFactory<Carreer,Checkbox>("checkBox"));
-    	      
-    	      
-    	      tableView.setItems(list);
-        }
-        
-		
-		
-		
-		
+			try (CSVReader reader = new CSVReader(new FileReader(csvFile, StandardCharsets.UTF_8))) {
+				List<String[]> r = reader.readAll();
+
+				String carreerCode = r.get(1)[0];
+
+				for (int i = 1; i < r.size(); i++) {
+					if (!carreerCode.equals(r.get(i)[0])) {
+						carreerCode = r.get(i)[0];
+						Carreer c = new Carreer(r.get(i)[0], r.get(i)[1]);
+						list.add(c);
+					}
+
+				}
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (CsvException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			carreerCodeColumn.setCellValueFactory(new PropertyValueFactory<Carreer, String>("carreerCode"));
+			carreerNameColumn.setCellValueFactory(new PropertyValueFactory<Carreer, String>("carreerName"));
+			selectionColumn.setCellValueFactory(new PropertyValueFactory<Carreer, Checkbox>("checkBox"));
+
+			tableView.setItems(list);
+		}
+
 	}
 
-	
 }

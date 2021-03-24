@@ -133,7 +133,6 @@ public class RequestUtils {
 		if (responseCode == 200)
 		{
 			response = RequestUtils.getResponse(con);
-			System.out.println(response);
 			if (response != null)
 				return new JSONObject(response);
 		}
