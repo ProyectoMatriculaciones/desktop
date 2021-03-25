@@ -125,25 +125,7 @@ public class ListController implements Initializable {
 			bnImport.setVisible(true);
 
 			ObservableList<Carreer> list = FXCollections.observableArrayList();
-			/*
-			 * BufferedReader br = null;
-			 * 
-			 * try {
-			 * 
-			 * br =new BufferedReader(new FileReader(csvFile,StandardCharsets.UTF_8));
-			 * String line = br.readLine(); String initialcode=""; while ((line =
-			 * br.readLine()) != null) { if(line.contains("\"")) { System.out.println(line);
-			 * }else { String[] datos = line.split(","); //Imprime datos.
-			 * if(!initialcode.equals(datos[0])) { initialcode=datos[0]; Carreer c=new
-			 * Carreer(datos[0],datos[1]); list.add(c); }
-			 * 
-			 * } }
-			 * 
-			 * } catch (Exception e) { e.printStackTrace(); } finally { if (null!=br) { try
-			 * { br.close(); } catch (IOException e) { // TODO Auto-generated catch block
-			 * e.printStackTrace(); } } }
-			 */
-
+			
 			try (CSVReader reader = new CSVReader(new FileReader(csvFile, StandardCharsets.UTF_8))) {
 				List<String[]> r = reader.readAll();
 
