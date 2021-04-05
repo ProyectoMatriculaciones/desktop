@@ -1,5 +1,7 @@
 package application;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -10,14 +12,23 @@ import org.json.JSONObject;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TitledPane;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
+import utils.GenericUtils;
 import utils.JsonUtils;
 import utils.RequestUtils;
 
@@ -34,6 +45,35 @@ public class VisualGradesController implements Initializable{
     
     @FXML
     private Label lblAccord;
+    
+    @FXML
+    private Button btImport;
+    
+    @FXML 
+    void openImportAction(ActionEvent e)
+    {
+    	FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Buscar Archivo CSV");
+
+		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("CSV", "*.csv"));
+		File csvFile = null;
+
+		// Dialog for get a csv file 
+		csvFile = fileChooser.showOpenDialog(Main.stage);
+		if (csvFile == null) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Importacion de ciclos");
+			alert.setContentText(
+					"Es necesario seleccionar un archivo CSV para acceder a la pantalla de importacion de datos");
+			alert.showAndWait();
+		}
+		else {
+			Main.importCsvFile = csvFile;
+			changeScene(GenericUtils.importWindow);
+		}
+    	
+    }
+	
     
     private JSONObject lastUpdatedGrade;
     
@@ -64,9 +104,6 @@ public class VisualGradesController implements Initializable{
     	{
     		System.out.println("Error al obtener la lista de ciclos");
     	}
-    	
-    	
-		
 	}
     
     
@@ -109,5 +146,20 @@ public class VisualGradesController implements Initializable{
         	}
     	}    	
     }
+	
+	
+	
+	public void changeScene(String fxmlName)
+	{
+		Parent root;
+		try {
+			root = FXMLLoader.load(getClass().getResource(fxmlName));
+			Scene scene = new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			Main.stage.setScene(scene);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }
 

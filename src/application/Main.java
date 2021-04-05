@@ -1,16 +1,17 @@
 package application;
 	
+import java.io.File;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.fxml.FXMLLoader;
 
 
 public class Main extends Application {
 	public static Stage stage;
+	public static File importCsvFile;
 	@Override
 	public void start(Stage primaryStage) {
 		try {
@@ -38,5 +39,5 @@ public class Main extends Application {
 		 * 
 		 * 
 		 * */
-	}
+	}	
 }

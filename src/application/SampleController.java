@@ -71,15 +71,8 @@ public class SampleController {
     		GenericUtils.currentToken = jResponse.getString("statusData");
     		
     		// Next scene after login
-    		Parent root;
-    		try {
-    			root = FXMLLoader.load(getClass().getResource("CarreerSelector.fxml"));
-    			Scene scene = new Scene(root);
-    			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-    			Main.stage.setScene(scene);
-    		} catch (IOException e) {
-    			e.printStackTrace();
-    		}
+    		changeScene(GenericUtils.viewGradesWindow);
+    		
     	}
     	else if (responseCode == 400)
     	{
@@ -91,10 +84,22 @@ public class SampleController {
         	 alert.setContentText("Los datos de inicio de sesion son incorrectos");
         	 alert.showAndWait();
     	}
-    	
-
-    	
     }
+    
+    
+    
+    public void changeScene(String fxmlName)
+	{
+		Parent root;
+		try {
+			root = FXMLLoader.load(getClass().getResource(fxmlName));
+			Scene scene = new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			Main.stage.setScene(scene);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 }
 

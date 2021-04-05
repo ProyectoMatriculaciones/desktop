@@ -28,12 +28,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import utils.CSVUtils;
+import utils.GenericUtils;
 import utils.RequestUtils;
 
 public class ListController implements Initializable {
@@ -60,6 +62,7 @@ public class ListController implements Initializable {
 	@FXML
 	void importCarreers(ActionEvent event) {
 
+		// Get selected codes
 		for (int i = 0; i < tableView.getItems().size(); i++) {
 
 			if (tableView.getItems().get(i).getCheckBox().isSelected()) {
@@ -68,25 +71,61 @@ public class ListController implements Initializable {
 
 		}
 
+		// Parse selected codes
 		ArrayList<JSONObject> selectedGrades = CSVUtils.parseGrade(codelist, importFile);
 
-		int inserted = RequestUtils.insertGrades(selectedGrades);
-
+		// Make insert request
+		ArrayList<JSONObject> conflictGrades = RequestUtils.insertGrades(selectedGrades, false);
+		int inserted = selectedGrades.size() - conflictGrades.size();
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Importacion de ciclos");
 		alert.setContentText("Se han insertado " + inserted + " nuevos ciclos!");
 		alert.showAndWait();
 
-		Parent root;
-		try {
-			root = FXMLLoader.load(getClass().getResource("VisualGrades.fxml"));
-			Scene scene = new Scene(root);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			Main.stage.setScene(scene);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		// Manage conflicted grades
+		selectedGrades.clear();
+		for (JSONObject grade : conflictGrades)
+		{			
+			Alert alertOverwrite = new Alert(AlertType.CONFIRMATION,
+			        "El ciclo con el codigo: " + grade.getString("careerCode") + " - " + grade.getString("careerName") 
+			        + " ya existe en la base de datos. ¿Quieres sobreescribirlo?");
+
+			alertOverwrite.setTitle("Ciclo con codigo existente");
+			ButtonType result = alertOverwrite.showAndWait().orElse(ButtonType.NO);
+			if (ButtonType.OK.equals(result)) {	
+				selectedGrades.add(grade);
+			}			
 		}
+		
+		// Insert overwriting selected conflict grades
+		if (selectedGrades.size() > 0)
+		{
+			conflictGrades = RequestUtils.insertGrades(selectedGrades, true);
+			if (conflictGrades.size() > 0)
+			{
+				String errorGradesList = "";
+				for (JSONObject grade : conflictGrades)
+				{
+					errorGradesList += "\t-> " + grade.getString("careerCode") + " - " + grade.getString("careerName") + "\n";
+				}
+				Alert alertOverwrite = new Alert(AlertType.ERROR,
+				        "No se han podido importar los siguientes ciclos:\n" + errorGradesList);
+
+				alertOverwrite.setTitle("Error importando ciclos");
+				alertOverwrite.showAndWait();
+			}
+			else
+			{
+				Alert alertOverwrite = new Alert(AlertType.INFORMATION,
+				        "Se han sobreescrito correctamente los ciclos");
+
+				alertOverwrite.setTitle("Error importando ciclos");
+				alertOverwrite.showAndWait();
+			}
+			
+		}
+		
+		changeScene(GenericUtils.viewGradesWindow);
 
 	}
 
@@ -99,25 +138,11 @@ public class ListController implements Initializable {
 		selectionColumn.setVisible(false);
 		bnImport.setVisible(false);
 
-		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle("Buscar Archivo CSV");
+		
+		
 
-		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("CSV", "*.csv"));
-		File csvFile = null;
-
-		while (csvFile == null) {
-			csvFile = fileChooser.showOpenDialog(Main.stage);
-			if (csvFile == null) {
-				Alert alert = new Alert(AlertType.ERROR);
-				alert.setTitle("Importacion de ciclos");
-				alert.setContentText(
-						"Es necesario seleccionar un archivo CSV para acceder a la pantalla de importacion de datos");
-				alert.showAndWait();
-			}
-		}
-
-		if (csvFile != null) {
-			importFile = csvFile;
+		if (Main.importCsvFile != null) {
+			importFile = Main.importCsvFile;
 			tableView.setVisible(true);
 			carreerCodeColumn.setVisible(true);
 			carreerNameColumn.setVisible(true);
@@ -126,7 +151,7 @@ public class ListController implements Initializable {
 
 			ObservableList<Carreer> list = FXCollections.observableArrayList();
 			
-			try (CSVReader reader = new CSVReader(new FileReader(csvFile, StandardCharsets.UTF_8))) {
+			try (CSVReader reader = new CSVReader(new FileReader(importFile, StandardCharsets.UTF_8))) {
 				List<String[]> r = reader.readAll();
 
 				String carreerCode = r.get(1)[0];
@@ -157,6 +182,22 @@ public class ListController implements Initializable {
 			tableView.setItems(list);
 		}
 
+		
+	}
+	
+	
+	
+	public void changeScene(String fxmlName)
+	{
+		Parent root;
+		try {
+			root = FXMLLoader.load(getClass().getResource(fxmlName));
+			Scene scene = new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			Main.stage.setScene(scene);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
