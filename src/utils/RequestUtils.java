@@ -139,25 +139,31 @@ public class RequestUtils {
 		return null;		
 	}
 	
-	public static int insertGrades(ArrayList<JSONObject> grades)
+	public static ArrayList<JSONObject> insertGrades(ArrayList<JSONObject> grades, boolean overwrite)
 	{
-	    	String sUrl = GenericUtils.apiUrl + GenericUtils.epInsertGrade;
-	    	String headers[][] = new String[3][2];
-	    	headers[0] = RequestUtils.hAcceptJson;
-	    	headers[1] = RequestUtils.setAccessToken(GenericUtils.currentToken);
-	    	headers[2] = RequestUtils.hContentJson;
-	    	int inserted = 0;
-	    	for (int i = 0; i < grades.size(); i++)
-	    	{
-	    		JSONObject grade = new JSONObject();
-	    		grade.put("grade", grades.get(i));
-	    		HttpURLConnection con = RequestUtils.sendRequest(sUrl, "POST", headers, true, grade.toString());
-				int responseCode = RequestUtils.getResponseCode(con);
-				if (responseCode == 200)
-				{
-					inserted++;
-				}
-	    	}
-	    	return inserted;				
+		ArrayList<JSONObject> conflictGrade = new ArrayList<JSONObject>();
+    	String sUrl = GenericUtils.apiUrl + GenericUtils.epInsertGrade;
+    	String headers[][] = new String[3][2];
+    	headers[0] = RequestUtils.hAcceptJson;
+    	headers[1] = RequestUtils.setAccessToken(GenericUtils.currentToken);
+    	headers[2] = RequestUtils.hContentJson;
+    	int inserted = 0;
+    	for (int i = 0; i < grades.size(); i++)
+    	{
+    		JSONObject grade = new JSONObject();
+    		grade.put("grade", grades.get(i));
+    		String sOverwrite = "false";
+    		if (overwrite){
+    			sOverwrite = "true";
+    		}
+    		grade.put("overwrite", sOverwrite);
+    		HttpURLConnection con = RequestUtils.sendRequest(sUrl, "POST", headers, true, grade.toString());
+			int responseCode = RequestUtils.getResponseCode(con);
+			if (responseCode == 400)
+			{
+				conflictGrade.add(grades.get(i));
+			}
+    	}
+    	return conflictGrade;				
 	}
 }
