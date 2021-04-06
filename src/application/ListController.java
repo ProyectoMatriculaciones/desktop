@@ -36,6 +36,13 @@ import javafx.stage.FileChooser;
 import utils.CSVUtils;
 import utils.RequestUtils;
 
+
+/**
+ * Esta clase es el controlador de la ventana de visualizacion de los ciclos a importar a la BD de Mongo.
+ * @author: Dani
+ * @author: Pablo 
+ */
+
 public class ListController implements Initializable {
 
 	@FXML
@@ -56,6 +63,14 @@ public class ListController implements Initializable {
 	private ArrayList<String> codelist = new ArrayList<>();
 
 	private File importFile;
+	
+	
+	/**
+	 * Este metodo importa los ciclos seleccionados a la BD llamando a la clase de RequestUtils
+	 * y muestra una alerta mostrando la cantidad de ciclos que se han introducido en la BD.
+	 * @param event Accion que captura la pulsacion del boton de importar ciclos.
+	 * @throws IOException Excepcion que surge cuando no es capaz de cargar la siguiente ventana
+	 */
 
 	@FXML
 	void importCarreers(ActionEvent event) {
@@ -90,6 +105,13 @@ public class ListController implements Initializable {
 
 	}
 
+	/**
+	 * Este metodo importa los ciclos seleccionados a la BD llamando a la clase de RequestUtils
+	 * y muestra una alerta mostrando la cantidad de ciclos que se han introducido en la BD.
+	 * @param event Accion que captura la pulsacion del boton de importar ciclos.
+	 * @throws IOException Excepcion que surge cuando no es capaz de cargar la siguiente ventana
+	 */
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
@@ -125,29 +147,11 @@ public class ListController implements Initializable {
 			bnImport.setVisible(true);
 
 			ObservableList<Carreer> list = FXCollections.observableArrayList();
-			/*
-			 * BufferedReader br = null;
-			 * 
-			 * try {
-			 * 
-			 * br =new BufferedReader(new FileReader(csvFile,StandardCharsets.UTF_8));
-			 * String line = br.readLine(); String initialcode=""; while ((line =
-			 * br.readLine()) != null) { if(line.contains("\"")) { System.out.println(line);
-			 * }else { String[] datos = line.split(","); //Imprime datos.
-			 * if(!initialcode.equals(datos[0])) { initialcode=datos[0]; Carreer c=new
-			 * Carreer(datos[0],datos[1]); list.add(c); }
-			 * 
-			 * } }
-			 * 
-			 * } catch (Exception e) { e.printStackTrace(); } finally { if (null!=br) { try
-			 * { br.close(); } catch (IOException e) { // TODO Auto-generated catch block
-			 * e.printStackTrace(); } } }
-			 */
 
 			try (CSVReader reader = new CSVReader(new FileReader(csvFile, StandardCharsets.UTF_8))) {
 				List<String[]> r = reader.readAll();
 
-				String carreerCode = r.get(1)[0];
+				String carreerCode = "";
 
 				for (int i = 1; i < r.size(); i++) {
 					if (!carreerCode.equals(r.get(i)[0])) {
