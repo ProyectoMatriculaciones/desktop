@@ -54,6 +54,9 @@ public class RequestUtils {
 		    	    byte[] input = inputString.getBytes("utf-8");
 		    	    os.write(input, 0, input.length);			
 		    	}
+		    	catch(Exception e) {
+		    		
+		    	}
 	    	}	    	
 	    	
 	    	return con;

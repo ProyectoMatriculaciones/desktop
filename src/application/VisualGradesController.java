@@ -49,6 +49,9 @@ public class VisualGradesController implements Initializable{
     @FXML
     private Button btImport;
     
+    @FXML
+    private Button btUpdate;
+    
     @FXML 
     void openImportAction(ActionEvent e)
     {
@@ -73,7 +76,11 @@ public class VisualGradesController implements Initializable{
 		}
     	
     }
-	
+    
+    @FXML 
+    public void refreshButtonAction(ActionEvent e) {
+    	loadComboGrades();
+    }
     
     private JSONObject lastUpdatedGrade;
     
@@ -92,6 +99,10 @@ public class VisualGradesController implements Initializable{
     	    }
     	});
     	
+    	loadComboGrades();
+	}
+    
+    private void loadComboGrades() {
     	// Get JSONArray of allGrades from API
     	JSONArray allGrades = RequestUtils.allGradesRequest();    	
     	if (allGrades != null)
@@ -104,9 +115,7 @@ public class VisualGradesController implements Initializable{
     	{
     		System.out.println("Error al obtener la lista de ciclos");
     	}
-	}
-    
-    
+    }
 
 	private void updateAccordion(String sGrade)
     {

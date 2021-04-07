@@ -84,6 +84,16 @@ public class SampleController {
         	 alert.setContentText("Los datos de inicio de sesion son incorrectos");
         	 alert.showAndWait();
     	}
+    	else if (responseCode == -1)
+    	{
+    		// No deja leer la response en caso de status 400, da error
+    		/*String sResponse = RequestUtils.getResponse(con);
+    		JSONObject jResponse = new JSONObject (sResponse);*/
+    		 Alert alert = new Alert(AlertType.ERROR);
+        	 alert.setTitle("Error de conexion");
+        	 alert.setContentText("no se ha podido establecer la conexion");
+        	 alert.showAndWait();
+    	}
     }
     
     
