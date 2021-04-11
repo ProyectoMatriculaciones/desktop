@@ -101,9 +101,14 @@ public class RequestUtils {
 	}
 	
 	
+	
+	
+	
+	
 	// ****************
 	// Request sends
 	// ****************
+	
 	public static JSONArray allGradesRequest() {
     	// Makes request to /get/AllGrades and return response as JSONArray
     	String sUrl = GenericUtils.apiUrl + GenericUtils.epAllGrades;

@@ -52,6 +52,16 @@ public class VisualGradesController implements Initializable{
     @FXML
     private Button btUpdate;
     
+    @FXML
+    private Button btVisualize;
+
+    @FXML
+    void openVisualizationAction(ActionEvent event) {
+    	
+    	changeScene(GenericUtils.viewAlumnsWindow);
+    	
+    }
+    
     @FXML 
     void openImportAction(ActionEvent e)
     {
@@ -77,19 +87,10 @@ public class VisualGradesController implements Initializable{
     	
     }
     
-    @FXML 
-    public void refreshButtonAction(ActionEvent e) {
-    	loadComboGrades();
-    }
-    
     private JSONObject lastUpdatedGrade;
     
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-    	
-    	// Set labels
-    	lblCombo.setText("Ciclos: ");
-    	lblAccord.setText("Modulos y UF's");
     	
     	// Combobox select listener
     	comboCicles.valueProperty().addListener(new ChangeListener<String>() {

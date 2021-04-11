@@ -13,4 +13,5 @@ public class GenericUtils {
 	public static String importWindow = "CarreerSelector.fxml";
 	public static String loginWindow = "Login.fxml";
 	public static String viewGradesWindow = "VisualGrades.fxml";
+	public static String viewAlumnsWindow = "VisualAlumn.fxml";
 }
