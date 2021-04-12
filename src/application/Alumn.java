@@ -10,7 +10,7 @@ public class Alumn {
 	private String idDoc;
 	private Button details;
 	
-	public Alumn(String name, String firstSurname, String secondSurname, String idDoc, Button details) {
+	public Alumn(String name, String firstSurname, String secondSurname, String idDoc) {
 		super();
 		this.name = name;
 		this.firstSurname = firstSurname;
