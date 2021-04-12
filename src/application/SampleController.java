@@ -71,7 +71,7 @@ public class SampleController {
     		GenericUtils.currentToken = jResponse.getString("statusData");
     		
     		// Next scene after login
-    		changeScene(GenericUtils.viewGradesWindow);
+    		changeScene(GenericUtils.documentsProfileFormWindow);
     		
     	}
     	else if (responseCode == 400)

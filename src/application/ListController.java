@@ -134,7 +134,7 @@ public class ListController implements Initializable {
 				Alert alertOverwrite = new Alert(AlertType.INFORMATION,
 				        "Se han sobreescrito correctamente los ciclos");
 
-				alertOverwrite.setTitle("Error importando ciclos");
+				alertOverwrite.setTitle("Sobreescribir ciclos");
 				alertOverwrite.showAndWait();
 			}
 			

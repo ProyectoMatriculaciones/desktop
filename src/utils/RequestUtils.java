@@ -169,4 +169,43 @@ public class RequestUtils {
     	}
     	return conflictGrade;				
 	}
+	
+	public static int insertProfileReq(JSONObject documentsProfile, boolean overwrite)
+	{
+    	String sUrl = GenericUtils.apiUrl + GenericUtils.epInsertDocumentsProfile;
+    	String headers[][] = new String[3][2];
+    	headers[0] = RequestUtils.hAcceptJson;
+    	headers[1] = RequestUtils.setAccessToken(GenericUtils.currentToken);
+    	headers[2] = RequestUtils.hContentJson;
+    	
+		JSONObject documentsProfilePost = new JSONObject();
+		documentsProfilePost.put("documentsProfile", documentsProfile);
+		String sOverwrite = "false";
+		if (overwrite){
+			sOverwrite = "true";
+		}
+		documentsProfilePost.put("overwrite", sOverwrite);
+		System.out.println(documentsProfilePost.toString(4));
+		HttpURLConnection con = RequestUtils.sendRequest(sUrl, "POST", headers, true, documentsProfilePost.toString());
+		int responseCode = RequestUtils.getResponseCode(con);
+		return responseCode;		  					
+	}
+	
+	public static JSONArray allAlumnsRequest(String careerCode) {
+    	// Makes request to /get/allAlumns and return response as JSONArray
+    	String sUrl = GenericUtils.apiUrl + GenericUtils.epGetAllAlumns + "?careerCode=" + careerCode;
+    	String headers[][] = new String[2][2];
+    	headers[0] = RequestUtils.hAcceptJson;
+    	headers[1] = RequestUtils.setAccessToken(GenericUtils.currentToken);
+		HttpURLConnection con = RequestUtils.sendRequest(sUrl, "GET", headers, true, null);
+		int responseCode = RequestUtils.getResponseCode(con);
+		String response = "";
+		if (responseCode == 200)
+		{
+			response = RequestUtils.getResponse(con);
+			if (response != null)
+				return new JSONArray(response);
+		}		
+		return null;				
+	}
 }
