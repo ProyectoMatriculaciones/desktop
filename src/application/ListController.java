@@ -42,7 +42,7 @@ import utils.RequestUtils;
 /**
  * Esta clase es el controlador de la ventana de visualizacion de los ciclos a importar a la BD de Mongo.
  * @author: Dani
- * @author: Pablo 
+ * @author: Pablo
  */
 
 public class ListController implements Initializable {
@@ -71,7 +71,6 @@ public class ListController implements Initializable {
 	 * Este metodo importa los ciclos seleccionados a la BD llamando a la clase de RequestUtils
 	 * y muestra una alerta mostrando la cantidad de ciclos que se han introducido en la BD.
 	 * @param event Accion que captura la pulsacion del boton de importar ciclos.
-	 * @throws IOException Excepcion que surge cuando no es capaz de cargar la siguiente ventana
 	 */
 
 	//
@@ -146,9 +145,10 @@ public class ListController implements Initializable {
 	}
 
 	/**
-	 * Este metodo importa los ciclos seleccionados a la BD llamando a la clase de RequestUtils
-	 * y muestra una alerta mostrando la cantidad de ciclos que se han introducido en la BD.
-	 * @param event Accion que captura la pulsacion del boton de importar ciclos.
+	 * Este metodo sobreescribe el metodo initialize para que importe los ciclos seleccionados a la BD llamando a la clase de RequestUtils
+	 * y mostrar una alerta mostrando la cantidad de ciclos que se han introducido en la BD.
+	 * @param arg0 URL
+	 * @param arg1 Resource Bundles
 	 * @throws IOException Excepcion que surge cuando no es capaz de cargar la siguiente ventana
 	 */
 	
@@ -210,7 +210,10 @@ public class ListController implements Initializable {
 	}
 	
 	
-	
+	/**
+	 * Este metodo cambia la escena de la ventana de la aplicación.
+	 * @param fxmlName String que contiene el nombre del archivo fxml que usa la escena. 
+	 */
 	public void changeScene(String fxmlName)
 	{
 		Parent root;
