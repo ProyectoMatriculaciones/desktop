@@ -18,6 +18,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.scene.control.Alert.AlertType;
 import utils.GenericUtils;
 import utils.RequestUtils;
@@ -100,9 +101,10 @@ public class SampleController {
     
     public void changeScene(String fxmlName)
 	{
-		Parent root;
+		Pane root;
 		try {
 			root = FXMLLoader.load(getClass().getResource(fxmlName));
+			root.getChildren().add(GenericUtils.menu);
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			Main.stage.setScene(scene);

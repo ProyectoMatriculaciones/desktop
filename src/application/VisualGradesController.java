@@ -27,6 +27,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import utils.GenericUtils;
 import utils.JsonUtils;
@@ -50,10 +51,7 @@ public class VisualGradesController implements Initializable{
     private Button btImport;
     
     @FXML
-    private Button btUpdate;
-    
-    @FXML
-    private Button btVisualize;
+    private Button btUpdate;   
 
     @FXML
     void openVisualizationAction(ActionEvent event) {
@@ -161,9 +159,10 @@ public class VisualGradesController implements Initializable{
 	
 	public void changeScene(String fxmlName)
 	{
-		Parent root;
+		Pane root;
 		try {
 			root = FXMLLoader.load(getClass().getResource(fxmlName));
+			root.getChildren().add(GenericUtils.menu);
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			Main.stage.setScene(scene);

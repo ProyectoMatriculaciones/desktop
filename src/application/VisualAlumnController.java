@@ -6,8 +6,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -28,6 +33,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -35,6 +41,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import utils.GenericUtils;
+import utils.JsonUtils;
+import utils.RequestUtils;
 
 public class VisualAlumnController  implements Initializable{
 
@@ -65,8 +73,121 @@ public class VisualAlumnController  implements Initializable{
 	    @FXML
 	    private Button btAlumnImport;
 	    
+	    @FXML
+	    private ComboBox<String> comboCicles;
 	    
-	    //metodo para importar los alumnmos del csv
+	    private ObservableList<Alumn> list;
+	    
+	      
+	    	    		
+	    @FXML
+	    void openSearchAction(ActionEvent event) {
+
+	    	String gradeCode = comboCicles.getSelectionModel().getSelectedItem().split(" - ")[0];
+	    	
+	    	updateTableInfo(gradeCode);
+	    	
+	    }
+	    
+		@Override
+		public void initialize(URL arg0, ResourceBundle arg1) {		
+			// load combo filter
+			loadComboGrades();
+			
+			// Set table cells properties
+			nameColumn.setCellValueFactory(new PropertyValueFactory<Alumn, String>("name"));
+			firstSurnameColumn.setCellValueFactory(new PropertyValueFactory<Alumn, String>("firstSurname"));
+			secondSurnameColumn.setCellValueFactory(new PropertyValueFactory<Alumn, String>("secondSurname"));
+			idDocColumn.setCellValueFactory(new PropertyValueFactory<Alumn, String>("idDoc"));
+			detailsColumn.setCellValueFactory(new PropertyValueFactory<Alumn, Button>("details"));
+			
+		}
+		
+	    
+	    public void updateTableInfo(String careerCode) {
+	    	JSONArray jsonAlumn = RequestUtils.allAlumnsRequest(careerCode);	
+	    	
+	    	if (!jsonAlumn.isEmpty())
+	    	{
+	    		list = FXCollections.observableArrayList();
+				
+				for (int i = 0; i < jsonAlumn.length(); i++) {
+					
+					JSONObject jsonObject = jsonAlumn.getJSONObject(i);
+					// GET identification document
+					String idDocType = "";
+					String idDoc = jsonObject.getString("DNI");
+					if (idDoc != null && idDoc.isBlank())
+					{
+						idDoc = jsonObject.getString("NIE");
+						if (idDoc != null && idDoc.isBlank())
+						{
+							idDoc = jsonObject.getString("PASS");
+							idDocType = "PASS";
+						}
+						else
+						{
+							idDocType = "NIE";
+						}
+					}
+					else
+					{
+						idDocType = "DNI";
+					}
+					// add doc type label
+					idDoc = idDocType + ": " + idDoc;
+					Alumn a =new Alumn(jsonObject.getString("name"), jsonObject.getString("firstSurname"), jsonObject.getString("secondSurname"), idDoc);
+					list.add(a);
+					
+				}
+				tableView.setItems(list);
+	    	}
+	    	else
+	    	{
+	    		list = FXCollections.observableArrayList();
+	    		tableView.setItems(list);
+	    		Alert alertOk = new Alert(AlertType.INFORMATION,
+				        "No se ha encontrado ningun alumno");
+	    		alertOk.setTitle("Resultados busqueda");
+	    		alertOk.showAndWait();
+	    	}
+			
+	    }
+	    
+	    
+	    public void changeScene(String fxmlName)
+		{
+			Parent root;
+			
+			try {
+				root = FXMLLoader.load(getClass().getResource(fxmlName));
+				Scene scene = new Scene(root);
+				scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+				Main.stage.setScene(scene);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+	
+		
+		private void loadComboGrades() {
+	    	// Get JSONArray of allGrades from API
+	    	JSONArray allGrades = RequestUtils.allGradesRequest();    	
+	    	if (allGrades != null)
+	    	{
+	    		// Set Combobox data
+	        	ArrayList<String> sAllGrades = JsonUtils.parseAllGrades(allGrades);				
+	    		comboCicles.setItems(FXCollections.observableArrayList(sAllGrades));
+	    	}
+	    	else
+	    	{
+	    		System.out.println("Error al obtener la lista de ciclos");
+	    	}
+	    }
+		
+		
+		 //metodo para importar los alumnmos del csv
 	    @FXML
 	    void openImportAction(ActionEvent event) {
 
@@ -86,8 +207,9 @@ public class VisualAlumnController  implements Initializable{
 				alert.showAndWait();
 			}
 			else {
+				 ArrayList<JSONObject> alumns = new ArrayList<JSONObject>();
 				try (CSVReader reader = new CSVReader(new FileReader (csvFile,StandardCharsets.UTF_8))) {
-				   List<String[]> r = reader.readAll();
+				   List<String[]> r = reader.readAll();				  
 				   for (int i = 1; i < r.size(); i++) {
 					   
 					   JSONObject alumn=new JSONObject();
@@ -150,12 +272,28 @@ public class VisualAlumnController  implements Initializable{
 					   alumn.put("language", r.get(i)[56]);
 					   alumn.put("religion", r.get(i)[57]);
 					   alumn.put("assignedInstituteCode", r.get(i)[58]);
-					   alumn.put("password","test");
+					   String sPass = "test";
+					   String md5Pass = "";
+					   byte[] bMd5Pass;
+					   try {
+						    MessageDigest md = MessageDigest.getInstance("MD5");
+							bMd5Pass = md.digest(sPass.getBytes("UTF-8"));
+							BigInteger no = new BigInteger(1, bMd5Pass);
+							md5Pass = new String(bMd5Pass);			
+							md5Pass = no.toString(16);
+							while (md5Pass.length() < 32) {
+								md5Pass = "0" + md5Pass;
+							    }
+						} catch (NoSuchAlgorithmException | UnsupportedEncodingException e1) {
+							// TODO Auto-generated catch block
+								e1.printStackTrace();
+						}
+					   alumn.put("password",md5Pass);
 					   alumn.put("sessionToken","");
-					   
-					   
-				   }
-				    
+						   
+					alumns.add(alumn);
+								  
+				   }				    
 				    
 				  } catch (FileNotFoundException e) {
 					// TODO Auto-generated catch block
@@ -167,84 +305,37 @@ public class VisualAlumnController  implements Initializable{
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				Alert alert = new Alert(AlertType.CONFIRMATION);
-				alert.setTitle("Importacion de usuarios");
-				alert.setContentText(
-						"Los usuarios se han enviado a la base de datos");
-				alert.showAndWait();
+				
+			 ArrayList<JSONObject> conflictAlumns = RequestUtils.insertAlumns(alumns);
+			   if (conflictAlumns.isEmpty())
+			   {
+				   Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("Importacion de usuarios");
+					alert.setContentText(
+							"Los usuarios se han enviado a la base de datos");
+					alert.showAndWait();
+			   }
+			   else
+			   {
+				   Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("Importacion de usuarios");
+					alert.setContentText(
+							"Ha habido conflictos, pero se han insertado correctamente " + (alumns.size() - conflictAlumns.size()) + " alumnos.");
+					alert.showAndWait();
+				   for (JSONObject cAlumn : conflictAlumns )
+				   {
+					   alert = new Alert(AlertType.ERROR);
+						alert.setTitle("Importacion de usuarios");
+						alert.setContentText(
+								"Error importando alumno: " + cAlumn.getString("name") + " " + cAlumn.getString("firstSurname") + " " + cAlumn.getString("secondSurname")
+								 + " -- " + cAlumn.getString("DNI"));
+						alert.showAndWait();
+				   }
+				  
+			   }
 			}
 	    	
 	    	
 	    }
-	    
-	    //mockup
-	   
-	  
-	    
-	    		
-	    @FXML
-	    void openSearchAction(ActionEvent event) {
-
-	    	
-	    	
-	    }
-	    
-	    public void changeScene(String fxmlName)
-		{
-			Parent root;
-			try {
-				root = FXMLLoader.load(getClass().getResource(fxmlName));
-				Scene scene = new Scene(root);
-				scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-				Main.stage.setScene(scene);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-
-		@Override
-		public void initialize(URL arg0, ResourceBundle arg1) {
-			 String strJSON = "[{\r\n"
-			    		+ "        \"name\": \"nombre\",\r\n"
-			    		+ "        \"firstSurname\": \"apellido\",\r\n"
-			    		+ "        \"secondSurname\": \"segundoapellido\",\r\n"
-			    		+ "        \"DNI\": \"00000000T\"\r\n"
-			    		+ "    },\r\n"
-			    		+ "    {\r\n"
-			    		+ "        \"name\": \"nombre\",\r\n"
-			    		+ "        \"firstSurname\": \"apellido\",\r\n"
-			    		+ "        \"secondSurname\": \"segundoapellido\",\r\n"
-			    		+ "        \"DNI\": \"00000000T\"\r\n"
-			    		+ "    },\r\n"
-			    		+ "    {\r\n"
-			    		+ "        \"name\": \"nombre\",\r\n"
-			    		+ "        \"firstSurname\": \"apellido\",\r\n"
-			    		+ "        \"secondSurname\": \"segundoapellido\",\r\n"
-			    		+ "        \"DNI\": \"00000000T\"\r\n"
-			    		+ "    }\r\n"
-			    		+ "]";
-			 
-			JSONArray jsonAlumn = (JSONArray) new JSONTokener(strJSON).nextValue();
-			
-			ObservableList<Alumn> list = FXCollections.observableArrayList();
-			
-			for (int i = 0; i < jsonAlumn.length(); i++) {
-				
-				JSONObject jsonObject = jsonAlumn.getJSONObject(i);
-				Alumn a =new Alumn(jsonObject.getString("name"), jsonObject.getString("firstSurname"), jsonObject.getString("secondSurname"), jsonObject.getString("DNI"));
-				list.add(a);
-				
-			}
-			
-			nameColumn.setCellValueFactory(new PropertyValueFactory<Alumn, String>("name"));
-			firstSurnameColumn.setCellValueFactory(new PropertyValueFactory<Alumn, String>("firstSurname"));
-			secondSurnameColumn.setCellValueFactory(new PropertyValueFactory<Alumn, String>("secondSurname"));
-			idDocColumn.setCellValueFactory(new PropertyValueFactory<Alumn, String>("idDoc"));
-			detailsColumn.setCellValueFactory(new PropertyValueFactory<Alumn, Button>("details"));
-			
-
-			tableView.setItems(list);
-			
-		}
 	
 }

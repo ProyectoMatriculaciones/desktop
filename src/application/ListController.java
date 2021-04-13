@@ -33,6 +33,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import utils.CSVUtils;
 import utils.GenericUtils;
@@ -42,7 +43,7 @@ import utils.RequestUtils;
 /**
  * Esta clase es el controlador de la ventana de visualizacion de los ciclos a importar a la BD de Mongo.
  * @author: Dani
- * @author: Pablo
+ * @author: Pablo 
  */
 
 public class ListController implements Initializable {
@@ -134,7 +135,7 @@ public class ListController implements Initializable {
 				Alert alertOverwrite = new Alert(AlertType.INFORMATION,
 				        "Se han sobreescrito correctamente los ciclos");
 
-				alertOverwrite.setTitle("Error importando ciclos");
+				alertOverwrite.setTitle("Sobreescribir ciclos");
 				alertOverwrite.showAndWait();
 			}
 			
@@ -209,16 +210,16 @@ public class ListController implements Initializable {
 		
 	}
 	
-	
 	/**
 	 * Este metodo cambia la escena de la ventana de la aplicación.
 	 * @param fxmlName String que contiene el nombre del archivo fxml que usa la escena. 
-	 */
+	 */	
 	public void changeScene(String fxmlName)
 	{
-		Parent root;
+		Pane root;
 		try {
 			root = FXMLLoader.load(getClass().getResource(fxmlName));
+			root.getChildren().add(GenericUtils.menu);
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			Main.stage.setScene(scene);
