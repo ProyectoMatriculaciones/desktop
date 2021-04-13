@@ -1,5 +1,7 @@
 package utils;
 
+import javafx.scene.control.MenuBar;
+
 public class GenericUtils {
 
 
@@ -10,6 +12,7 @@ public class GenericUtils {
 	public static final String epInsertGrade = "/insert/grade";
 	public static final String epInsertDocumentsProfile = "/insert/documentsProfile";
 	public static final String epGetAllAlumns = "/get/allAlumns";
+	public static final String epInsertAlumn = "/insert/alumn";
 	public static String currentToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNGY4ZTE4NTZiNDhhMWJmNGRlMDRiMCIsImFkbWluIjp0cnVlLCJpYXQiOjE2MTY0MzA0NjYsImV4cCI6MTYxNjQzMTkwNn0._20oHcf03-xaCmcPTXo4HgoY-L1QN0vxAmpwf96axmY";
 
 	public static String importWindow = "CarreerSelector.fxml";
@@ -17,4 +20,7 @@ public class GenericUtils {
 	public static String viewGradesWindow = "VisualGrades.fxml";	
 	public static String documentsProfileFormWindow = "DocumentsProfileForm.fxml";
 	public static String viewAlumnsWindow = "VisualAlumn.fxml";
+	
+	
+	public static MenuBar menu;
 }

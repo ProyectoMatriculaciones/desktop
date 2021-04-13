@@ -1,11 +1,21 @@
 package application;
 	
 import java.io.File;
+import java.io.IOException;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.stage.Stage;
+import utils.GenericUtils;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.fxml.FXMLLoader;
 
 
@@ -15,7 +25,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+			Pane root = FXMLLoader.load(getClass().getResource("Login.fxml"));
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
@@ -27,6 +37,7 @@ public class Main extends Application {
 	}
 	
 	public static void main(String[] args) {
+		setMenuBar();
 		launch(args);
 		/*
 		 * 
@@ -39,5 +50,73 @@ public class Main extends Application {
 		 * 
 		 * 
 		 * */
+	}
+
+	private static void setMenuBar() {
+		MenuBar menuBar = new MenuBar();
+		
+		Label lItemVisAlum = new Label("Visualizar alumnos");
+		lItemVisAlum.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		    @Override
+		    public void handle(MouseEvent event) {
+		    	Pane root;
+        		try {
+        			root = FXMLLoader.load(getClass().getResource(GenericUtils.viewAlumnsWindow));
+        			root.getChildren().add(GenericUtils.menu);
+        			Scene scene = new Scene(root);
+        			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+        			Main.stage.setScene(scene);
+        		} catch (IOException e2) {
+        			e2.printStackTrace();
+        		}		       
+		    }
+		});
+		Menu itemVisAlum = new Menu();
+		itemVisAlum.setGraphic(lItemVisAlum);
+		
+		
+		Label litemVisCicl = new Label("Visualizar ciclos");
+		litemVisCicl.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		    @Override
+		    public void handle(MouseEvent event) {
+		    	Pane root;
+        		try {
+        			root = FXMLLoader.load(getClass().getResource(GenericUtils.viewGradesWindow));
+        			root.getChildren().add(GenericUtils.menu);
+        			Scene scene = new Scene(root);
+        			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+        			Main.stage.setScene(scene);
+        		} catch (IOException e2) {
+        			e2.printStackTrace();
+        		}		       
+		    }
+		});
+		Menu itemVisCicl = new Menu();
+		itemVisCicl.setGraphic(litemVisCicl);
+		
+		Label litemFormReq = new Label("Formulario de perfiles de requisitos");
+		litemFormReq.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		    @Override
+		    public void handle(MouseEvent event) {
+		    	Pane root;
+        		try {
+        			root = FXMLLoader.load(getClass().getResource(GenericUtils.documentsProfileFormWindow));
+        			root.getChildren().add(GenericUtils.menu);
+        			Scene scene = new Scene(root);
+        			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+        			Main.stage.setScene(scene);
+        		} catch (IOException e2) {
+        			e2.printStackTrace();
+        		}
+		    }
+		});       
+		Menu itemFormReq = new Menu();
+		itemFormReq.setGraphic(litemFormReq);
+		
+        menuBar.getMenus().add(itemVisAlum);
+		menuBar.getMenus().add(itemVisCicl);
+		menuBar.getMenus().add(itemFormReq);
+		GenericUtils.menu = menuBar;
+		
 	}	
 }

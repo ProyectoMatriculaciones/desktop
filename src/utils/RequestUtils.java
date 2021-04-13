@@ -190,7 +190,6 @@ public class RequestUtils {
 			sOverwrite = "true";
 		}
 		documentsProfilePost.put("overwrite", sOverwrite);
-		System.out.println(documentsProfilePost.toString(4));
 		HttpURLConnection con = RequestUtils.sendRequest(sUrl, "POST", headers, true, documentsProfilePost.toString());
 		int responseCode = RequestUtils.getResponseCode(con);
 		return responseCode;		  					
@@ -198,7 +197,7 @@ public class RequestUtils {
 	
 	public static JSONArray allAlumnsRequest(String careerCode) {
     	// Makes request to /get/allAlumns and return response as JSONArray
-    	String sUrl = GenericUtils.apiUrl + GenericUtils.epGetAllAlumns + "?careerCode=" + careerCode;
+    	String sUrl = GenericUtils.apiUrl + GenericUtils.epGetAllAlumns + "?careerCode=" + careerCode.replaceAll(" ", "+");
     	String headers[][] = new String[2][2];
     	headers[0] = RequestUtils.hAcceptJson;
     	headers[1] = RequestUtils.setAccessToken(GenericUtils.currentToken);
@@ -212,5 +211,29 @@ public class RequestUtils {
 				return new JSONArray(response);
 		}		
 		return null;				
+	}
+	
+	public static ArrayList<JSONObject> insertAlumns(ArrayList<JSONObject> alumns)
+	{
+		ArrayList<JSONObject> conflictAlumn = new ArrayList<JSONObject>();
+    	String sUrl = GenericUtils.apiUrl + GenericUtils.epInsertAlumn;
+    	String headers[][] = new String[3][2];
+    	headers[0] = RequestUtils.hAcceptJson;
+    	headers[1] = RequestUtils.setAccessToken(GenericUtils.currentToken);
+    	headers[2] = RequestUtils.hContentJson;
+    	int inserted = 0;
+    	for (int i = 0; i < alumns.size(); i++)
+    	{
+    		JSONObject alumnPost = new JSONObject();
+    		alumnPost.put("alumn", alumns.get(i));
+    		
+    		HttpURLConnection con = RequestUtils.sendRequest(sUrl, "POST", headers, true, alumnPost.toString());
+			int responseCode = RequestUtils.getResponseCode(con);
+			if (responseCode == 400)
+			{
+				conflictAlumn.add(alumns.get(i));
+			}
+    	}		
+    	return conflictAlumn;
 	}
 }

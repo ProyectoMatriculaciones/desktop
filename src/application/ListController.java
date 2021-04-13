@@ -33,6 +33,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import utils.CSVUtils;
 import utils.GenericUtils;
@@ -213,9 +214,10 @@ public class ListController implements Initializable {
 	
 	public void changeScene(String fxmlName)
 	{
-		Parent root;
+		Pane root;
 		try {
 			root = FXMLLoader.load(getClass().getResource(fxmlName));
+			root.getChildren().add(GenericUtils.menu);
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			Main.stage.setScene(scene);

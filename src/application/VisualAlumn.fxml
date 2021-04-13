@@ -1,32 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.VisualAlumnController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="920.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.VisualAlumnController">
    <children>
-      <Label layoutX="215.0" layoutY="14.0" text="Lista de alumnos">
+      <Label layoutX="360.0" layoutY="27.0" text="Lista de alumnos">
          <font>
             <Font size="23.0" />
          </font>
       </Label>
-      <Label layoutX="154.0" layoutY="76.0" text="Filtraje:" />
-      <TextField fx:id="filterId" layoutX="202.0" layoutY="72.0" />
-      <Button fx:id="btSearch" layoutX="385.0" layoutY="72.0" mnemonicParsing="false" onAction="#openSearchAction" text="Buscar" />
-      <TableView fx:id="tableView" layoutX="38.0" layoutY="115.0" prefHeight="262.0" prefWidth="536.0">
+      <Label layoutX="105.0" layoutY="154.0" text="Filtraje:">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font></Label>
+      <Button fx:id="btSearch" layoutX="781.0" layoutY="154.0" mnemonicParsing="false" onAction="#openSearchAction" prefHeight="27.0" prefWidth="110.0" text="Buscar" />
+      <TableView fx:id="tableView" layoutX="105.0" layoutY="215.0" prefHeight="491.0" prefWidth="791.0">
         <columns>
-          <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Nombre" />
-          <TableColumn fx:id="firstSurnameColumn" prefWidth="99.20001220703125" text="Primer apellido" />
-            <TableColumn fx:id="secondSurnameColumn" prefWidth="112.0" text="Segundo apellido" />
-            <TableColumn fx:id="idDocColumn" prefWidth="150.4000244140625" text="Documento de identidad" />
-            <TableColumn fx:id="detailsColumn" prefWidth="96.79998779296875" text="Detalles" />
+          <TableColumn fx:id="nameColumn" prefWidth="130.0" text="Nombre" />
+          <TableColumn fx:id="firstSurnameColumn" prefWidth="166.0" text="Primer apellido" />
+            <TableColumn fx:id="secondSurnameColumn" prefWidth="195.0" text="Segundo apellido" />
+            <TableColumn fx:id="idDocColumn" prefWidth="193.0" text="Documento de identidad" />
+            <TableColumn fx:id="detailsColumn" prefWidth="106.0" text="Detalles" />
         </columns>
       </TableView>
-      <Button fx:id="btAlumnImport" layoutX="463.0" layoutY="19.0" mnemonicParsing="false" onAction="#openImportAction" text="Importar alumnos" />
+      <Button fx:id="btAlumnImport" layoutX="398.0" layoutY="748.0" mnemonicParsing="false" onAction="#openImportAction" prefHeight="64.0" prefWidth="206.0" text="Importar alumnos" />
+      <ComboBox fx:id="comboCicles" layoutX="296.0" layoutY="155.0" prefHeight="25.0" prefWidth="298.0" />
    </children>
 </Pane>
