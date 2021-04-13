@@ -16,10 +16,13 @@
             <TableColumn fx:id="selectionColumn" prefWidth="147.0" text="Selection" />
         </columns>
       </TableView>
-      <Button fx:id="bnImport" layoutX="440.0" layoutY="615.0" mnemonicParsing="false" onAction="#importCarreers" prefHeight="43.0" prefWidth="121.0" text="Import" />
-      <Label layoutX="281.0" layoutY="65.0" prefHeight="43.0" prefWidth="439.0" text="SELECCIONA LOS CICLOS QUE QUIERES IMPORTAR" textAlignment="CENTER">
+      <Button fx:id="bnImport" layoutX="440.0" layoutY="615.0" mnemonicParsing="false" onAction="#importCarreers" prefHeight="43.0" prefWidth="121.0" text="Import">
          <font>
-            <Font name="System Bold" size="18.0" />
+            <Font name="System Bold" size="20.0" />
+         </font></Button>
+      <Label layoutX="200.0" layoutY="65.0" prefHeight="43.0" prefWidth="599.0" text="SELECCIONA LOS CICLOS QUE QUIERES IMPORTAR" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="24.0" />
          </font>
       </Label>
    </children>

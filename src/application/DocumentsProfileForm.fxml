@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="920.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.DocumentsProfileFormController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.DocumentsProfileFormController">
    <children>
       <Label layoutX="175.0" layoutY="31.0" prefHeight="66.0" prefWidth="651.0" text="FORMULARIO DE CREACION DE PERFILES DE REQUISITOS" textAlignment="CENTER">
          <font>
@@ -28,9 +28,9 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <ScrollPane fx:id="scrollPaneList" layoutX="470.0" layoutY="347.0" prefHeight="531.0" prefWidth="356.0">
+      <ScrollPane fx:id="scrollPaneList" layoutX="470.0" layoutY="347.0" prefHeight="381.0" prefWidth="356.0">
          <content>
-            <VBox fx:id="vboxList" prefHeight="508.0" prefWidth="337.0" />
+            <VBox fx:id="vboxList" prefHeight="364.0" prefWidth="338.0" />
          </content>
       </ScrollPane>
       <Label layoutX="218.0" layoutY="347.0" prefHeight="27.0" prefWidth="215.0" text="LISTA DE REQUISITOS:" textAlignment="CENTER">
@@ -42,7 +42,7 @@
          <font>
             <Font name="System Bold" size="23.0" />
          </font></Button>
-      <Button fx:id="btSave" layoutX="218.0" layoutY="828.0" mnemonicParsing="false" onAction="#saveAction" prefHeight="50.0" prefWidth="167.0" text="GUARDAR">
+      <Button fx:id="btSave" layoutX="218.0" layoutY="655.0" mnemonicParsing="false" onAction="#saveAction" prefHeight="50.0" prefWidth="167.0" text="GUARDAR">
          <font>
             <Font name="System Bold" size="23.0" />
          </font>

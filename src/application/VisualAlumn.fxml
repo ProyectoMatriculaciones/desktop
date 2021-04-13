@@ -8,11 +8,11 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="920.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.VisualAlumnController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.VisualAlumnController">
    <children>
-      <Label layoutX="360.0" layoutY="27.0" text="Lista de alumnos">
+      <Label layoutX="386.0" layoutY="90.0" text="LISTA DE ALUMNOS">
          <font>
-            <Font size="23.0" />
+            <Font name="System Bold" size="24.0" />
          </font>
       </Label>
       <Label layoutX="105.0" layoutY="154.0" text="Filtraje:">
@@ -20,7 +20,7 @@
             <Font name="System Bold" size="18.0" />
          </font></Label>
       <Button fx:id="btSearch" layoutX="781.0" layoutY="154.0" mnemonicParsing="false" onAction="#openSearchAction" prefHeight="27.0" prefWidth="110.0" text="Buscar" />
-      <TableView fx:id="tableView" layoutX="105.0" layoutY="215.0" prefHeight="491.0" prefWidth="791.0">
+      <TableView fx:id="tableView" layoutX="105.0" layoutY="215.0" prefHeight="410.0" prefWidth="791.0">
         <columns>
           <TableColumn fx:id="nameColumn" prefWidth="130.0" text="Nombre" />
           <TableColumn fx:id="firstSurnameColumn" prefWidth="166.0" text="Primer apellido" />
@@ -29,7 +29,10 @@
             <TableColumn fx:id="detailsColumn" prefWidth="106.0" text="Detalles" />
         </columns>
       </TableView>
-      <Button fx:id="btAlumnImport" layoutX="398.0" layoutY="748.0" mnemonicParsing="false" onAction="#openImportAction" prefHeight="64.0" prefWidth="206.0" text="Importar alumnos" />
-      <ComboBox fx:id="comboCicles" layoutX="296.0" layoutY="155.0" prefHeight="25.0" prefWidth="298.0" />
+      <Button fx:id="btAlumnImport" layoutX="370.0" layoutY="645.0" mnemonicParsing="false" onAction="#openImportAction" prefHeight="64.0" prefWidth="259.0" text="IMPORTAR ALUMNOS">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font></Button>
+      <ComboBox fx:id="comboCicles" layoutX="352.0" layoutY="155.0" prefHeight="25.0" prefWidth="298.0" />
    </children>
 </Pane>
