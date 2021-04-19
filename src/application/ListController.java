@@ -17,6 +17,7 @@ import org.json.JSONObject;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 
+import application.Carreer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -42,8 +43,8 @@ import utils.RequestUtils;
 
 /**
  * Esta clase es el controlador de la ventana de visualizacion de los ciclos a importar a la BD de Mongo.
- * @author: Dani
- * @author: Pablo 
+ * @author Dani
+ * @author Pablo 
  */
 
 public class ListController implements Initializable {

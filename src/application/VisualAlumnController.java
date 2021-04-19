@@ -23,6 +23,8 @@ import org.json.JSONTokener;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 
+import application.Alumn;
+import application.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -66,6 +68,9 @@ public class VisualAlumnController  implements Initializable{
 
 	    @FXML
 	    private TableColumn<Alumn, String> idDocColumn;
+	    
+	    @FXML
+	    private TableColumn<Alumn, String> emailColumn;
 
 	    @FXML
 	    private TableColumn<Alumn, Button> detailsColumn;
@@ -99,6 +104,7 @@ public class VisualAlumnController  implements Initializable{
 			firstSurnameColumn.setCellValueFactory(new PropertyValueFactory<Alumn, String>("firstSurname"));
 			secondSurnameColumn.setCellValueFactory(new PropertyValueFactory<Alumn, String>("secondSurname"));
 			idDocColumn.setCellValueFactory(new PropertyValueFactory<Alumn, String>("idDoc"));
+			emailColumn.setCellValueFactory(new PropertyValueFactory<Alumn, String>("email"));
 			detailsColumn.setCellValueFactory(new PropertyValueFactory<Alumn, Button>("details"));
 			
 		}
@@ -136,7 +142,7 @@ public class VisualAlumnController  implements Initializable{
 					}
 					// add doc type label
 					idDoc = idDocType + ": " + idDoc;
-					Alumn a =new Alumn(jsonObject.getString("name"), jsonObject.getString("firstSurname"), jsonObject.getString("secondSurname"), idDoc);
+					Alumn a =new Alumn(jsonObject.getString("name"), jsonObject.getString("firstSurname"), jsonObject.getString("secondSurname"), idDoc,jsonObject.getString("email"));
 					list.add(a);
 					
 				}
@@ -154,22 +160,6 @@ public class VisualAlumnController  implements Initializable{
 			
 	    }
 	    
-	    
-	    public void changeScene(String fxmlName)
-		{
-			Parent root;
-			
-			try {
-				root = FXMLLoader.load(getClass().getResource(fxmlName));
-				Scene scene = new Scene(root);
-				scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-				Main.stage.setScene(scene);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-
-	
 		
 		private void loadComboGrades() {
 	    	// Get JSONArray of allGrades from API
@@ -337,5 +327,19 @@ public class VisualAlumnController  implements Initializable{
 	    	
 	    	
 	    }
+	    
+	    public void changeScene(String fxmlName)
+		{
+			Parent root;
+			
+			try {
+				root = FXMLLoader.load(getClass().getResource(fxmlName));
+				Scene scene = new Scene(root);
+				scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+				Main.stage.setScene(scene);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	
 }

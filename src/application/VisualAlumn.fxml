@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.VisualAlumnController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.VisualAlumnController">
    <children>
       <Label layoutX="386.0" layoutY="90.0" text="LISTA DE ALUMNOS">
          <font>
@@ -23,10 +23,11 @@
       <TableView fx:id="tableView" layoutX="105.0" layoutY="215.0" prefHeight="410.0" prefWidth="791.0">
         <columns>
           <TableColumn fx:id="nameColumn" prefWidth="130.0" text="Nombre" />
-          <TableColumn fx:id="firstSurnameColumn" prefWidth="166.0" text="Primer apellido" />
-            <TableColumn fx:id="secondSurnameColumn" prefWidth="195.0" text="Segundo apellido" />
-            <TableColumn fx:id="idDocColumn" prefWidth="193.0" text="Documento de identidad" />
-            <TableColumn fx:id="detailsColumn" prefWidth="106.0" text="Detalles" />
+          <TableColumn fx:id="firstSurnameColumn" prefWidth="152.00001525878906" text="Primer apellido" />
+            <TableColumn fx:id="secondSurnameColumn" prefWidth="138.4000244140625" text="Segundo apellido" />
+            <TableColumn fx:id="idDocColumn" prefWidth="165.5999755859375" text="Documento de identidad" />
+            <TableColumn fx:id="emailColumn" minWidth="0.0" prefWidth="128.0" text="Email" />
+            <TableColumn fx:id="detailsColumn" prefWidth="79.199951171875" text="Detalles" />
         </columns>
       </TableView>
       <Button fx:id="btAlumnImport" layoutX="370.0" layoutY="645.0" mnemonicParsing="false" onAction="#openImportAction" prefHeight="64.0" prefWidth="259.0" text="IMPORTAR ALUMNOS">
