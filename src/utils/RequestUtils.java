@@ -235,9 +235,8 @@ public class RequestUtils {
 			}
     	}		
     	return conflictAlumn;
-	}
-	
-<<<<<<< Updated upstream
+	}	
+
 	public static boolean updateAlumn(JSONObject updateAlumnPost)
 	{
     	String sUrl = GenericUtils.apiUrl + GenericUtils.epUpdateAlumn;
@@ -247,7 +246,17 @@ public class RequestUtils {
     	headers[2] = RequestUtils.hContentJson;		
 		
 		HttpURLConnection con = RequestUtils.sendRequest(sUrl, "POST", headers, true, updateAlumnPost.toString());
-=======
+		int responseCode = RequestUtils.getResponseCode(con);
+		if (responseCode == 200)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}  
+	}
+
 	public static boolean validateDocument(String email, String profileName, String documentName)
 	{
     	String sUrl = GenericUtils.apiUrl + GenericUtils.epValidateFile;
@@ -262,7 +271,7 @@ public class RequestUtils {
 		jsPost.put("documentName", documentName);		
 		
 		HttpURLConnection con = RequestUtils.sendRequest(sUrl, "POST", headers, true, jsPost.toString());
->>>>>>> Stashed changes
+
 		int responseCode = RequestUtils.getResponseCode(con);
 		if (responseCode == 200)
 		{
@@ -273,8 +282,6 @@ public class RequestUtils {
 			return false;
 		}    	
 	}
-	
-<<<<<<< Updated upstream
 	public static JSONObject getAlumn(String email) {
     	// Makes request to /get/alumn and return response as JSONArray
     	String sUrl = GenericUtils.apiUrl + GenericUtils.epGetAlumn + "?username=" + email.replaceAll("@", "%40");
@@ -290,8 +297,8 @@ public class RequestUtils {
 			if (response != null)
 				return new JSONObject(response);
 		}		
-		return null;				
-=======
+		return null;
+}
 	public static JSONObject getDocument(String email, String profileName, String documentName)
 	{
     	String sUrl = GenericUtils.apiUrl + GenericUtils.epGetDocument;
@@ -314,7 +321,6 @@ public class RequestUtils {
 		else
 		{
 			return null;
-		}    	
->>>>>>> Stashed changes
+		} 
 	}
 }
