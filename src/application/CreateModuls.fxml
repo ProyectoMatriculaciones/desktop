@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.CreateModulsController">
+   <children>
+      <Label layoutX="402.0" layoutY="30.0" prefHeight="66.0" prefWidth="197.0" text="CREAR MODULO" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="48.0" layoutY="127.0" prefHeight="32.0" prefWidth="205.0" text="CODIGO MODULO">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
+      <TextField fx:id="txtCode" layoutX="300.0" layoutY="129.0" prefHeight="25.0" prefWidth="260.0" />
+      <Label layoutX="48.0" layoutY="170.0" prefHeight="32.0" prefWidth="197.0" text="NOMBRE CICLO">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
+      <TextField fx:id="txtName" layoutX="300.0" layoutY="172.0" prefHeight="25.0" prefWidth="260.0" />
+      <Label layoutX="48.0" layoutY="217.0" prefHeight="32.0" prefWidth="239.0" text="DURACION MINIMA">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
+      <TextField fx:id="txtMinDuration" layoutX="300.0" layoutY="219.0" prefHeight="25.0" prefWidth="260.0" />
+      <Label layoutX="48.0" layoutY="263.0" prefHeight="32.0" prefWidth="187.0" text="DURACION MAXIMA">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
+      <TextField fx:id="txtMaxDuration" layoutX="300.0" layoutY="265.0" prefHeight="25.0" prefWidth="260.0" />
+      <Label layoutX="48.0" layoutY="315.0" prefHeight="32.0" prefWidth="169.0" text="FECHA INICIO">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
+      <TextField fx:id="txtDateInit" layoutX="300.0" layoutY="317.0" prefHeight="25.0" prefWidth="260.0" />
+      <Label layoutX="48.0" layoutY="369.0" prefHeight="32.0" prefWidth="155.0" text="FECHA FINAL">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
+      <TextField fx:id="txtDateFinish" layoutX="300.0" layoutY="371.0" prefHeight="25.0" prefWidth="260.0" />
+      <ListView layoutX="599.0" layoutY="127.0" prefHeight="271.0" prefWidth="336.0" />
+      <Label layoutX="746.0" layoutY="80.0" prefHeight="32.0" prefWidth="44.0" text="UFS">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font></Label>
+      <Button layoutX="694.0" layoutY="424.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="147.0" text="CREAR UF">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <Button layoutX="161.0" layoutY="489.0" mnemonicParsing="false" onAction="#addModul" prefHeight="66.0" prefWidth="291.0" text="ANADIR MODULO AL CICLO">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font></Button>
+      <Button layoutX="48.0" layoutY="30.0" mnemonicParsing="false" onAction="#backAction" prefHeight="32.0" prefWidth="104.0" text="ATRAS">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font></Button>      
+   </children>
+</AnchorPane>

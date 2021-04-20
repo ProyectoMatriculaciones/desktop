@@ -42,6 +42,8 @@ public class VisualAlumnDetailsController implements Initializable {
 	private ArrayList<String> keyList=new ArrayList<>();	
 
 	JSONObject json;
+	
+	public static JSONObject lastAlumnDetail;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -55,6 +57,7 @@ public class VisualAlumnDetailsController implements Initializable {
 		}
 		else
 		{
+			lastAlumnDetail = json;
 			vBoxId.setSpacing(7);
 
 			Iterator<?> permisos = json.keys();
@@ -132,6 +135,20 @@ public class VisualAlumnDetailsController implements Initializable {
 			Main.stage.setScene(scene);
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+    }
+    
+    @FXML
+    void seeDocumentsButtonAction(ActionEvent e)
+    {
+    	Pane root;
+		try {
+			root = FXMLLoader.load(getClass().getResource("DetailAlumnListFiles.fxml"));
+			Scene scene = new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			Main.stage.setScene(scene);
+		} catch (IOException e2) {
+			e2.printStackTrace();
 		}
     }
 }

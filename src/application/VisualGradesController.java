@@ -86,6 +86,22 @@ public class VisualGradesController implements Initializable{
     	
     }
     
+    @FXML
+    void openCreateGrades(ActionEvent event)
+    {
+    	CreateGradesController.grade = null;
+    	CreateGradesController.moduls = null;
+    	Pane root;
+		try {
+			root = FXMLLoader.load(getClass().getResource("CreateGrades.fxml"));
+			Scene scene = new Scene(root);
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			Main.stage.setScene(scene);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
+    
     private JSONObject lastUpdatedGrade;
     
     @Override
@@ -128,32 +144,46 @@ public class VisualGradesController implements Initializable{
     		accordMps.getPanes().clear();
     		lastUpdatedGrade = grade;
         	
-        	JSONArray mps = grade.getJSONArray("arrayMO");
-        	for (int i = 0; i < mps.length(); i++)
-        	{
-        		JSONObject mp = mps.getJSONObject(i);
-        		JSONArray ufs = mp.getJSONArray("arrayUF");
-        		
-        		ArrayList<String> ufNames = new ArrayList<String>();    		
-        		for (int j = 0; j < ufs.length(); j++)
-        		{
-        			JSONObject uf = ufs.getJSONObject(j);
-        			ufNames.add(uf.getString("UFName") + " - " + uf.getString("UFDuration") + "h");  
-        		}	
-        		ListView<String> lv = new ListView<String>();
-        		lv.setItems(FXCollections.observableArrayList(ufNames));	
-        		lv.setPrefHeight(100);
-        		AnchorPane content = new AnchorPane();
-        		content.getChildren().add(lv);
-        		content.setLeftAnchor(lv, 0.0);
-        		content.setRightAnchor(lv, 0.0);
-               
-                
-        		TitledPane tp = new TitledPane(mp.getString("MOName"), content);
-        		accordMps.getPanes().add(tp);
-        		
-        	}
-    	}    	
+    		JSONArray mps = null;
+    		try {
+    			mps = grade.getJSONArray("arrayMO");
+    		} catch(Exception e) {}
+        	
+    		if (mps != null)
+    		{
+    			for (int i = 0; i < mps.length(); i++)
+            	{
+            		JSONObject mp = mps.getJSONObject(i);
+            		JSONArray ufs = null;
+            		try {
+            			ufs = mp.getJSONArray("arrayUF");
+            		} catch(Exception e) {}
+            		
+            		ArrayList<String> ufNames = new ArrayList<String>(); 
+            		if (ufs != null)
+            		{
+            			for (int j = 0; j < ufs.length(); j++)
+                		{
+                			JSONObject uf = ufs.getJSONObject(j);
+                			ufNames.add(uf.getString("UFName") + " - " + uf.getString("UFDuration") + "h");  
+                		}
+            		}      
+            			
+            		ListView<String> lv = new ListView<String>();
+            		lv.setItems(FXCollections.observableArrayList(ufNames));	
+            		lv.setPrefHeight(100);
+            		AnchorPane content = new AnchorPane();
+            		content.getChildren().add(lv);
+            		content.setLeftAnchor(lv, 0.0);
+            		content.setRightAnchor(lv, 0.0);                   
+                    
+            		TitledPane tp = new TitledPane(mp.getString("MOName"), content);
+            		accordMps.getPanes().add(tp);
+            		
+            	}
+        	}    	
+    	}
+        	
     }
 	
 	

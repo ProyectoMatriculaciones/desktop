@@ -29,5 +29,10 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
+      <Button layoutX="811.0" layoutY="464.0" mnemonicParsing="false" onAction="#seeDocumentsButtonAction" prefHeight="50.0" prefWidth="175.0" text="VER DOCUMENTOS">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Button>
    </children>
 </Pane>
