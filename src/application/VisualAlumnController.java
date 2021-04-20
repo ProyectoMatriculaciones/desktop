@@ -109,7 +109,10 @@ public class VisualAlumnController  implements Initializable{
 			
 		}
 		
-	    
+		/**
+		 * Este metodo actualiza la informacion de la tabla
+		 * @param careerCode String que contiene el codigo del ciclo
+		 */	
 	    public void updateTableInfo(String careerCode) {
 	    	JSONArray jsonAlumn = RequestUtils.allAlumnsRequest(careerCode);	
 	    	
@@ -160,7 +163,9 @@ public class VisualAlumnController  implements Initializable{
 			
 	    }
 	    
-		
+	    /**
+		 * Este metodo carga los ciclos en el combobox
+		 */	
 		private void loadComboGrades() {
 	    	// Get JSONArray of allGrades from API
 	    	JSONArray allGrades = RequestUtils.allGradesRequest();    	
@@ -177,7 +182,10 @@ public class VisualAlumnController  implements Initializable{
 	    }
 		
 		
-		 //metodo para importar los alumnmos del csv
+		/**
+		 * Este metodo importa los alumnos de un CSV que seleccionas con el explorador de archivos
+		 * @param fxmlName String que contiene el nombre del archivo fxml que usa la escena. 
+		 */	
 	    @FXML
 	    void openImportAction(ActionEvent event) {
 
@@ -327,7 +335,10 @@ public class VisualAlumnController  implements Initializable{
 	    	
 	    	
 	    }
-	    
+	    /**
+		 * Este metodo cambia la escena de la ventana de la aplicación.
+		 * @param fxmlName String que contiene el nombre del archivo fxml que usa la escena. 
+		 */	
 	    public void changeScene(String fxmlName)
 		{
 			Parent root;

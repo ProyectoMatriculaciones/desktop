@@ -56,7 +56,9 @@ public class DocumentsProfileFormController implements Initializable{
     	addThreeFields();
     	
 	}
-    
+    /**
+   	 * Este metodo inserta en la bd el requisito del perfil
+   	 */
     @FXML
     public void saveAction() {
     	// Build json object
@@ -121,7 +123,10 @@ public class DocumentsProfileFormController implements Initializable{
     	}
     	
     }
-    
+    /**
+   	 * Este metodo recorre los requisitos y devuelve solo los que tienen contenido dentro del textfield
+   	 * @return allReqs Arraylist<String> que contiene todos los requisitos
+   	 */
     private ArrayList<String> getAllReqsFromVbox() {
     	ArrayList<String> allReqs = new ArrayList<String>();
     	for (TextField txt : txtVboxList)
@@ -134,7 +139,9 @@ public class DocumentsProfileFormController implements Initializable{
 		}
 		return allReqs;
 	}
-
+    /**
+   	 * Este metodo añade tres campos más en la ventana para introducir los requisitos
+   	 */
 	@FXML
     public void addThreeFields() {
     	for (int i = 0; i < 3; i++)
@@ -146,7 +153,12 @@ public class DocumentsProfileFormController implements Initializable{
     		
     	}
     }
-    
+
+    /**
+   	 * Este metodo cambia la escena de la ventana
+   	 * @param fxmlName nombre del archivo fxml
+   	 * @throws IOException
+   	 */
 	
 	public void changeScene(String fxmlName)
 	{

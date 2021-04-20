@@ -90,7 +90,10 @@ public class VisualAlumnDetailsController implements Initializable {
 
 	}
 
-
+	/**
+   	 * Este metodo actualiza el JSON de los datos del usuario por los introducidos en la ventana
+   	 * @param event Evento
+   	 */
     @FXML
     void updateJSON(ActionEvent event) {
 
@@ -122,7 +125,11 @@ public class VisualAlumnDetailsController implements Initializable {
     		alertError.showAndWait();
     	}
     }
-    
+    /**
+   	 * Este metodo nos cambia la escena por el visualizador de alumnos
+   	 * @param e Evento
+   	 * @throws IOException
+   	 */
     @FXML
     void backButtonAction(ActionEvent event)    
     {
@@ -137,7 +144,10 @@ public class VisualAlumnDetailsController implements Initializable {
 			e.printStackTrace();
 		}
     }
-    
+    /**
+   	 * Este metodo nos cambia la escena por el visualizador de documentos del alumno
+   	 * @param e Evento
+   	 */
     @FXML
     void seeDocumentsButtonAction(ActionEvent e)
     {

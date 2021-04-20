@@ -325,7 +325,12 @@ public class DetailAlumnListFilesController implements Initializable{
     	}    	
 	}
     
-    
+
+    /**
+   	 * Este metodo devuelve el nombre del archivo a partir de su filepath
+   	 * @param path ruta del archivo
+   	 * @return String Nombre del archivo
+   	 */
     public String getfileNameByPath(String path)
     {
     	String fileName;    	
@@ -348,7 +353,10 @@ public class DetailAlumnListFilesController implements Initializable{
     	return fileName;
     }
 
-    
+    /**
+   	 * Este metodo muestra un mensaje de confirmación avisando que se perderan los datos 
+   	 * @param event Evento
+   	 */
     @FXML
     void backButtonAction(ActionEvent event)    
     {
@@ -362,7 +370,11 @@ public class DetailAlumnListFilesController implements Initializable{
 			e.printStackTrace();
 		}
     }
-	
+    /**
+   	 * Este metodo cambia la escena de la ventana
+   	 * @param fxmlName nombre del archivo fxml
+   	 * @throws IOException
+   	 */
 	public void changeScene(String fxmlName)
 	{
 		Pane root;

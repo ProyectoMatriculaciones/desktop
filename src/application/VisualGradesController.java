@@ -54,13 +54,20 @@ public class VisualGradesController implements Initializable{
     @FXML
     private Button btUpdate;   
 
+    /**
+   	 * Este metodo cambia la escena de la ventana por la visualizacion de los alumnos.
+   	 * @param event Evento
+   	 */	
     @FXML
     void openVisualizationAction(ActionEvent event) {
     	
     	changeScene(GenericUtils.viewAlumnsWindow);
     	
     }
-    
+    /**
+   	 * Este metodo abre el explorador de archivos para cargar un archivo CSV
+   	 * @param e Evento
+   	 */	
     @FXML 
     void openImportAction(ActionEvent e)
     {
@@ -85,7 +92,10 @@ public class VisualGradesController implements Initializable{
 		}
     	
     }
-    
+    /**
+   	 * Este metodo cambia la escena de la ventana por la de crear ciclos.
+   	 * @param event Evento
+   	 */	
     @FXML
     void openCreateGrades(ActionEvent event)
     {
@@ -117,7 +127,10 @@ public class VisualGradesController implements Initializable{
     	
     	loadComboGrades();
 	}
-    
+    /**
+   	 * Este metodo carga los ciclos en el combobox
+   	 * @param event Evento
+   	 */	
     private void loadComboGrades() {
     	// Get JSONArray of allGrades from API
     	JSONArray allGrades = RequestUtils.allGradesRequest();    	
@@ -132,7 +145,10 @@ public class VisualGradesController implements Initializable{
     		System.out.println("Error al obtener la lista de ciclos");
     	}
     }
-
+    /**
+   	 * Este metodo actualiza el contenido del acordeon
+   	 * @param sGrade String que contiene los ciclos separados por guiones
+   	 */	
 	private void updateAccordion(String sGrade)
     {
 		
@@ -187,7 +203,10 @@ public class VisualGradesController implements Initializable{
     }
 	
 	
-	
+	 /**
+	 * Este metodo cambia la escena de la ventana de la aplicación.
+	 * @param fxmlName String que contiene el nombre del archivo fxml que usa la escena. 
+	 */	
 	public void changeScene(String fxmlName)
 	{
 		Pane root;

@@ -29,21 +29,6 @@ public class Alumn {
 		b.setOnAction(new EventHandler<ActionEvent>() {
 		    @Override public void handle(ActionEvent e) {
 
-				/*
-				 * try {
-				 * 
-				 * FXMLLoader loader=new FXMLLoader(getClass().getResource("VisualAlumnDetails.fxml")); 
-				 * Parent root=loader.load();
-				 * VisualAlumnDetailsController cont=loader.getController();
-				 * cont.setEmail(eMail);
-				 * Scene scene = new Scene(root);
-				 * scene.getStylesheets().add(getClass().getResource("application.css").
-				 * toExternalForm()); Main.stage.setScene(scene);
-				 * 
-				 * } catch (IOException e1) { // TODO Auto-generated catch block
-				 * e1.printStackTrace(); }
-				 */
-		    	
 		    	VisualAlumnDetailsController.currentEmail = email;
 				try {
 					FXMLLoader loader=new FXMLLoader(getClass().getResource("VisualAlumnDetails.fxml"));

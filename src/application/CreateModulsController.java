@@ -49,7 +49,10 @@ public class CreateModulsController implements Initializable{
     	
 	}
     
-    
+    /**
+	 * Este metodo Recoge los parametros introducidos, los convierte en el modulo a insertar y lo añade
+	 * @param event Evento
+	 */
     @FXML
     public void addModul(ActionEvent event)
     {
@@ -95,7 +98,10 @@ public class CreateModulsController implements Initializable{
 			alert.showAndWait();
     	}
     }  
-    
+    /**
+   	 * Este metodo muestra un mensaje de confirmación avisando que se perderan los datos 
+   	 * @param event Evento
+   	 */
     @FXML
     void backAction(ActionEvent event)
     {
@@ -108,7 +114,11 @@ public class CreateModulsController implements Initializable{
 			changeScene("CreateGrades.fxml");
 		}	
     }
-	
+    /**
+   	 * Este metodo cambia la escena de la ventana
+   	 * @param fxmlName nombre del archivo fxml
+   	 * @throws IOException
+   	 */
 	public void changeScene(String fxmlName)
 	{
 		Pane root;

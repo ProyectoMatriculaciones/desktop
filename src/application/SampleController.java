@@ -33,7 +33,10 @@ public class SampleController {
 
     @FXML
     private PasswordField pass;
-
+    /**
+	 * Este metodo envia a la API los datos introducidos y los comprueba con la bd para ver si están registrados
+	 * @param event Evento
+	 */	
     @FXML
     void Login(ActionEvent event) {
 
@@ -98,7 +101,10 @@ public class SampleController {
     }
     
     
-    
+    /**
+	 * Este metodo cambia la escena de la ventana de la aplicación.
+	 * @param fxmlName String que contiene el nombre del archivo fxml que usa la escena. 
+	 */	
     public void changeScene(String fxmlName)
 	{
 		Pane root;

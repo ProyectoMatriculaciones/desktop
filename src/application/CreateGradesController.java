@@ -109,7 +109,10 @@ public class CreateGradesController implements Initializable{
     	
 	}
     
-    
+    /**
+   	 * Este metodo importa los ciclos 
+   	 * @param event Evento
+   	 */
     @FXML
     void importGrade(ActionEvent event)
     {
@@ -197,7 +200,10 @@ public class CreateGradesController implements Initializable{
     
     
     
-    
+    /**
+   	 * Este metodo almacena los datos introducidos en la ventana del ciclo y una vez guardados abre la ventana de crear el modulo
+   	 * @param event Evento
+   	 */
     @FXML 
     void createModul(ActionEvent event)
     {
@@ -242,14 +248,11 @@ public class CreateGradesController implements Initializable{
     			
     	changeScene("createModuls.fxml");
     		
-    		
-    	
-    		
-    		
-    		
-    		
     }
-    
+    /**
+   	 * Este metodo elimina los modulos seleccionados
+   	 * @param event Evento
+   	 */
     @FXML void deleteModul(ActionEvent event)
     {
     	int index = listModuls.getSelectionModel().getSelectedIndex();
@@ -267,7 +270,10 @@ public class CreateGradesController implements Initializable{
     		
     	
     }
-    
+    /**
+   	 * Este metodo muestra un mensaje de confirmación avisando que se perderan los datos 
+   	 * @param event Evento
+   	 */
     @FXML void backAction(ActionEvent event)    
     {
     	Alert alertOverwrite = new Alert(AlertType.CONFIRMATION,
@@ -291,7 +297,11 @@ public class CreateGradesController implements Initializable{
 		}	    	
     }
     
-	
+    /**
+   	 * Este metodo cambia la escena de la ventana
+   	 * @param fxmlName nombre del archivo fxml
+   	 * @throws IOException
+   	 */
 	public void changeScene(String fxmlName)
 	{
 		Pane root;
