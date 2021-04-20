@@ -7,21 +7,26 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.VisualAlumnDetailsController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.VisualAlumnDetailsController">
    <children>
-      <Label layoutX="387.0" layoutY="81.0" text="DETALLES DEL ALUMNO">
+      <Label layoutX="363.0" layoutY="53.0" text="DETALLES DEL ALUMNO">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <ScrollPane layoutX="251.0" layoutY="172.0" prefHeight="475.0" prefWidth="543.0">
+      <ScrollPane layoutX="251.0" layoutY="100.0" prefHeight="475.0" prefWidth="543.0">
          <content>
             <VBox fx:id="vBoxId" prefHeight="458.0" prefWidth="522.0" />
          </content>
       </ScrollPane>
-      <Button fx:id="btActualizar" layoutX="53.0" layoutY="344.0" mnemonicParsing="false" onAction="#updateJSON" prefHeight="62.0" prefWidth="120.0" text="Actualizar">
+      <Button fx:id="btActualizar" layoutX="385.0" layoutY="614.0" mnemonicParsing="false" onAction="#updateJSON" prefHeight="62.0" prefWidth="275.0" text="ACTUALIZAR">
          <font>
             <Font name="System Bold" size="20.0" />
+         </font>
+      </Button>
+      <Button layoutX="36.0" layoutY="53.0" mnemonicParsing="false" onAction="#backButtonAction" prefHeight="35.0" prefWidth="134.0" text="ATRAS">
+         <font>
+            <Font name="System Bold" size="18.0" />
          </font>
       </Button>
    </children>

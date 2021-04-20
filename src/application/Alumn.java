@@ -44,13 +44,13 @@ public class Alumn {
 				 * e1.printStackTrace(); }
 				 */
 		    	
-				
+		    	VisualAlumnDetailsController.currentEmail = email;
 				try {
 					FXMLLoader loader=new FXMLLoader(getClass().getResource("VisualAlumnDetails.fxml"));
 					Parent root = loader.load();
 					VisualAlumnDetailsController cont=loader.getController();
 					Scene scene = new Scene(root);
-					scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+					scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());					
 					Main.stage.setScene(scene);
 				} catch (IOException ee) {
 					ee.printStackTrace();

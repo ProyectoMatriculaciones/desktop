@@ -236,4 +236,42 @@ public class RequestUtils {
     	}		
     	return conflictAlumn;
 	}
+	
+	public static boolean updateAlumn(JSONObject updateAlumnPost)
+	{
+    	String sUrl = GenericUtils.apiUrl + GenericUtils.epUpdateAlumn;
+    	String headers[][] = new String[3][2];
+    	headers[0] = RequestUtils.hAcceptJson;
+    	headers[1] = RequestUtils.setAccessToken(GenericUtils.currentToken);
+    	headers[2] = RequestUtils.hContentJson;		
+		
+		HttpURLConnection con = RequestUtils.sendRequest(sUrl, "POST", headers, true, updateAlumnPost.toString());
+		int responseCode = RequestUtils.getResponseCode(con);
+		if (responseCode == 200)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}    	
+	}
+	
+	public static JSONObject getAlumn(String email) {
+    	// Makes request to /get/alumn and return response as JSONArray
+    	String sUrl = GenericUtils.apiUrl + GenericUtils.epGetAlumn + "?username=" + email.replaceAll("@", "%40");
+    	String headers[][] = new String[2][2];
+    	headers[0] = RequestUtils.hAcceptJson;
+    	headers[1] = RequestUtils.setAccessToken(GenericUtils.currentToken);
+		HttpURLConnection con = RequestUtils.sendRequest(sUrl, "GET", headers, true, null);
+		int responseCode = RequestUtils.getResponseCode(con);
+		String response = "";
+		if (responseCode == 200)
+		{
+			response = RequestUtils.getResponse(con);
+			if (response != null)
+				return new JSONObject(response);
+		}		
+		return null;				
+	}
 }
