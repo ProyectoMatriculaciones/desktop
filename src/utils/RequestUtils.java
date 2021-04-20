@@ -237,6 +237,7 @@ public class RequestUtils {
     	return conflictAlumn;
 	}
 	
+<<<<<<< Updated upstream
 	public static boolean updateAlumn(JSONObject updateAlumnPost)
 	{
     	String sUrl = GenericUtils.apiUrl + GenericUtils.epUpdateAlumn;
@@ -246,6 +247,22 @@ public class RequestUtils {
     	headers[2] = RequestUtils.hContentJson;		
 		
 		HttpURLConnection con = RequestUtils.sendRequest(sUrl, "POST", headers, true, updateAlumnPost.toString());
+=======
+	public static boolean validateDocument(String email, String profileName, String documentName)
+	{
+    	String sUrl = GenericUtils.apiUrl + GenericUtils.epValidateFile;
+    	String headers[][] = new String[3][2];
+    	headers[0] = RequestUtils.hAcceptJson;
+    	headers[1] = RequestUtils.setAccessToken(GenericUtils.currentToken);
+    	headers[2] = RequestUtils.hContentJson;
+    	
+		JSONObject jsPost = new JSONObject();
+		jsPost.put("email", email);
+		jsPost.put("profileName", profileName);
+		jsPost.put("documentName", documentName);		
+		
+		HttpURLConnection con = RequestUtils.sendRequest(sUrl, "POST", headers, true, jsPost.toString());
+>>>>>>> Stashed changes
 		int responseCode = RequestUtils.getResponseCode(con);
 		if (responseCode == 200)
 		{
@@ -257,6 +274,7 @@ public class RequestUtils {
 		}    	
 	}
 	
+<<<<<<< Updated upstream
 	public static JSONObject getAlumn(String email) {
     	// Makes request to /get/alumn and return response as JSONArray
     	String sUrl = GenericUtils.apiUrl + GenericUtils.epGetAlumn + "?username=" + email.replaceAll("@", "%40");
@@ -273,5 +291,30 @@ public class RequestUtils {
 				return new JSONObject(response);
 		}		
 		return null;				
+=======
+	public static JSONObject getDocument(String email, String profileName, String documentName)
+	{
+    	String sUrl = GenericUtils.apiUrl + GenericUtils.epGetDocument;
+    	String headers[][] = new String[3][2];
+    	headers[0] = RequestUtils.hAcceptJson;
+    	headers[1] = RequestUtils.setAccessToken(GenericUtils.currentToken);
+    	headers[2] = RequestUtils.hContentJson;
+    	
+		JSONObject jsPost = new JSONObject();
+		jsPost.put("email", email);
+		jsPost.put("profileName", profileName);
+		jsPost.put("documentName", documentName);		
+		
+		HttpURLConnection con = RequestUtils.sendRequest(sUrl, "POST", headers, true, jsPost.toString());
+		int responseCode = RequestUtils.getResponseCode(con);
+		if (responseCode == 200)
+		{
+			return new JSONObject(RequestUtils.getResponse(con));
+		}
+		else
+		{
+			return null;
+		}    	
+>>>>>>> Stashed changes
 	}
 }

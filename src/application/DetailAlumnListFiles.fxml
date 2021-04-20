@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.DetailAlumnListFilesController">
+   <children>
+      <Label layoutX="227.0" layoutY="31.0" prefHeight="66.0" prefWidth="547.0" text="LISTA DE ARCHIVOS DEL PERFIL DE REQUISITOS" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <ScrollPane fx:id="scrollPaneList" layoutX="149.0" layoutY="103.0" prefHeight="529.0" prefWidth="720.0">
+         <content>
+            <VBox fx:id="vboxList" prefHeight="511.0" prefWidth="704.0" />
+         </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>
